@@ -49,7 +49,7 @@ public class Maison {
         description = description;
     }
 
-    @Column(columnDefinition = "TEXT", nullable = true)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String listeServices;
 
     public String getListeServices() {
@@ -71,7 +71,7 @@ public class Maison {
         this.dateDispoDebut = dateDispoDebut;
     }
 
-    @Column(columnDefinition = "DATE", nullable = false)
+    @Column(columnDefinition = "DATE", nullable = true)
     private LocalDate dateDispoFin;
 
     public LocalDate getDateDispoFin() {
@@ -81,6 +81,10 @@ public class Maison {
     public void setDateDispoFin(LocalDate dateDispoFin) {
         this.dateDispoFin = dateDispoFin;
     }
+
+    // TODO Maison.images
+
+    // TODO toutes les relations many-many many-one etc.
 
     @Override
     public String toString() {
