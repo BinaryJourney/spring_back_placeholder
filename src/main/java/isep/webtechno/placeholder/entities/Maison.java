@@ -2,6 +2,7 @@ package isep.webtechno.placeholder.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity(name = "Maison")
 public class Maison {
@@ -15,10 +16,10 @@ public class Maison {
         this.listeServices = listeServices;
     }
 
-    @GeneratedValue
-    @Id
     private Long id;
 
+    @GeneratedValue
+    @Id
     public Long getId() {
         return id;
     }
@@ -27,9 +28,9 @@ public class Maison {
         this.id = id;
     }
 
-    @Basic(optional = false)
     private String titre;
 
+    @Basic(optional = false)
     public String getTitre() {
         return titre;
     }
@@ -38,9 +39,9 @@ public class Maison {
         titre = titre;
     }
 
-    @Column(columnDefinition = "TEXT", nullable = false)
     private String description;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     public String getDescription() {
         return description;
     }
@@ -49,9 +50,9 @@ public class Maison {
         description = description;
     }
 
-    @Column(columnDefinition = "TEXT", nullable = false)
     private String listeServices;
 
+    @Column(columnDefinition = "TEXT", nullable = false)
     public String getListeServices() {
         return listeServices;
     }
@@ -60,9 +61,9 @@ public class Maison {
         this.listeServices = liste_services;
     }
 
-    @Column(columnDefinition = "DATE", nullable = true)
     private LocalDate dateDispoDebut;
 
+    @Column(columnDefinition = "DATE", nullable = true)
     public LocalDate getDateDispoDebut() {
         return dateDispoDebut;
     }
@@ -71,15 +72,37 @@ public class Maison {
         this.dateDispoDebut = dateDispoDebut;
     }
 
-    @Column(columnDefinition = "DATE", nullable = true)
     private LocalDate dateDispoFin;
 
+    @Column(columnDefinition = "DATE", nullable = true)
     public LocalDate getDateDispoFin() {
         return dateDispoFin;
     }
 
     public void setDateDispoFin(LocalDate dateDispoFin) {
         this.dateDispoFin = dateDispoFin;
+    }
+
+    private Users user;
+
+    @ManyToOne
+    public Users getUser() {
+        return user;
+    }
+
+    public void setUser(Users user) {
+        this.user = user;
+    }
+
+    private Set<Tags> tags;
+
+    @ManyToMany(mappedBy = "maison")
+    public Set<Tags> getTags() {
+        return tags;
+    }
+
+    public void setTags(Set<Tags> tags) {
+        this.tags = tags;
     }
 
     // TODO Maison.images

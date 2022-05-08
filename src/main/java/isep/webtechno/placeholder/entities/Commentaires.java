@@ -3,13 +3,12 @@ package isep.webtechno.placeholder.entities;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
+@Entity(name = "Commentaires")
 public class Commentaires {
 
+    private Long id;
     @GeneratedValue
     @Id
-    private Long id;
-
     public Long getId() {
         return id;
     }
@@ -18,9 +17,9 @@ public class Commentaires {
         this.id = id;
     }
 
-    @Basic(optional = false)
     private Integer note;
 
+    @Basic(optional = false)
     public Integer getNote() {
         return note;
     }
@@ -29,9 +28,9 @@ public class Commentaires {
         this.note = note;
     }
 
-    @Column(columnDefinition = "TEXT")
     private String text;
 
+    @Column(columnDefinition = "TEXT")
     public String getText() {
         return text;
     }
@@ -40,9 +39,9 @@ public class Commentaires {
         this.text = text;
     }
 
-    @Column(columnDefinition = "TIMESTAMP", nullable = false)
     private LocalDateTime timestamp;
 
+    @Column(columnDefinition = "TIMESTAMP", nullable = false)
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
@@ -51,5 +50,27 @@ public class Commentaires {
         this.timestamp = timestamp;
     }
 
+    private Users users;
+    @ManyToOne
+    public Users getUsers() {
+        return users;
+    }
+
+    public void setUsers(Users users) {
+        this.users = users;
+    }
+
+    private Maison maison;
+
+    @ManyToOne
+    public Maison getMaison() {
+        return maison;
+    }
+
+    public void setMaison(Maison maison) {
+        this.maison = maison;
+    }
+
     //TODO Commentaire.image + Commentaire.toString
+
 }

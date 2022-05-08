@@ -1,17 +1,14 @@
 package isep.webtechno.placeholder.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity
+@Entity(name = "Images")
 public class Images {
+
+    private Long id;
 
     @GeneratedValue
     @Id
-    private Long id;
-
     public Long getId() {
         return id;
     }
@@ -20,14 +17,47 @@ public class Images {
         this.id = id;
     }
 
-    @Basic(optional = false)
     private String filename;
 
+    @Basic(optional = false)
     public String getFilename() {
         return filename;
     }
 
     public void setFilename(String filename) {
         this.filename = filename;
+    }
+
+    private Commentaires commentaires;
+
+    @ManyToOne
+    public Commentaires getCommentaires() {
+        return commentaires;
+    }
+
+    public void setCommentaires(Commentaires commentaires) {
+        this.commentaires = commentaires;
+    }
+
+    private Maison maison;
+
+    @ManyToOne
+    public Maison getMaison() {
+        return maison;
+    }
+
+    public void setMaison(Maison maison) {
+        this.maison = maison;
+    }
+
+    private Messages messages;
+
+    @ManyToOne
+    public Messages getMessages() {
+        return messages;
+    }
+
+    public void setMessages(Messages messages) {
+        this.messages = messages;
     }
 }

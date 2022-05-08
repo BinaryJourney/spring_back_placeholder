@@ -61,7 +61,6 @@ public class Users {
         this.password = password;
     }
 
-
     private String role;
 
     @Basic(optional = false)

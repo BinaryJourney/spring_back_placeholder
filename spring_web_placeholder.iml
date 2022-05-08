@@ -15,10 +15,13 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="entityManagerFactory" />
+          <factory-entry name="entityManagerFactory" value="619a420f-3ffc-4033-9069-1102ae4e0ff0" />
           <factory-entry name="spring_web_placeholder" />
         </datasource-mapping>
-        <naming-strategy-map />
+        <naming-strategy-map>
+          <unit-entry name="entityManagerFactory" value="org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy" />
+          <unit-entry name="spring_web_placeholder" value="org.hibernate.boot.model.naming.CamelCaseToUnderscoresNamingStrategy" />
+        </naming-strategy-map>
       </configuration>
     </facet>
     <facet type="Spring" name="Spring">

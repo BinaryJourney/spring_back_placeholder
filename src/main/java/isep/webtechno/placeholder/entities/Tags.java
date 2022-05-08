@@ -1,9 +1,7 @@
 package isep.webtechno.placeholder.entities;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Set;
 
 @Entity(name = "Tags")
 public class Tags {
@@ -20,9 +18,9 @@ public class Tags {
         this.id = id;
     }
 
-    @Basic(optional = false)
     private String type;
 
+    @Basic(optional = false)
     public String getType() {
         return type;
     }
@@ -31,9 +29,9 @@ public class Tags {
         this.type = type;
     }
 
-    @Basic(optional = false)
     private String libelle;
 
+    @Basic(optional = false)
     public String getLibelle() {
         return libelle;
     }
@@ -41,9 +39,10 @@ public class Tags {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
-    @Basic(optional = false)
+
     private Boolean isOptionnel;
 
+    @Basic(optional = false)
     public Boolean getOptionnel() {
         return isOptionnel;
     }
@@ -52,5 +51,19 @@ public class Tags {
         isOptionnel = optionnel;
     }
 
+    private Set<Maison> maison;
 
+    @ManyToMany
+    @JoinTable(
+            name = "tags_maison",
+            joinColumns = @JoinColumn(name = "tags_id"),
+            inverseJoinColumns = @JoinColumn(name = "maison_id")
+    )
+    public Set<Maison> getMaison() {
+        return maison;
+    }
+
+    public void setMaison(Set<Maison> maison) {
+        this.maison = maison;
+    }
 }
