@@ -1,57 +1,56 @@
 package isep.webtechno.placeholder.controllers;
 
-import isep.webtechno.placeholder.entities.Commentaires;
-import isep.webtechno.placeholder.exceptions.CommentairesNotFoundException;
-import isep.webtechno.placeholder.repositories.CommentairesRepository;
+import isep.webtechno.placeholder.entities.Images;
+import isep.webtechno.placeholder.exceptions.ImagesNotFoundException;
+import isep.webtechno.placeholder.repositories.ImagesRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class ImagesController {
-//    private final CommentairesRepository commentairesRepository;
-//
-//    ImagesController(CommentairesRepository commentairesRepository) {
-//        this.commentairesRepository = commentairesRepository;
-//    }
-//
-//    @GetMapping("/commentaires")
-//    List<Commentaires> all() {
-//        return commentairesRepository.findAll();
-//    }
-//
-//    @PostMapping("/commentaires")
-//    Commentaires newCommentaire(@RequestBody Commentaires newCommentaire) {
-//        return commentairesRepository.save(newCommentaire);
-//    }
-//
-//    @GetMapping("commentaires/{id}")
-//    Commentaires one(@PathVariable Long id) {
-//
-//        return commentairesRepository.findById(id)
-//                .orElseThrow(() -> new CommentairesNotFoundException(id));
-//    }
-//
-//    @PutMapping("/commentaires/{id}")
-//    Commentaires replaceCommentaire(@RequestBody Commentaires newCommentaire, @PathVariable Long id) {
-//
-//        return commentairesRepository.findById(id)
-//                .map(commentaire -> {
-//                    commentaire.setNote(newCommentaire.getNote());
-//                    commentaire.setText(newCommentaire.getText());
-//                    commentaire.setTimestamp(newCommentaire.getTimestamp());
-//                    commentaire.setUsers(newCommentaire.getUsers());
-//                    commentaire.setMaison(newCommentaire.getMaison());
-//                    return commentairesRepository.save(commentaire);
-//                })
-//                .orElseGet(() -> {
-//                    newCommentaire.setId(id);
-//                    return commentairesRepository.save(newCommentaire);
-//                });
-//    }
-//
-//    @DeleteMapping("/maisons/{id}")
-//    void deleteCommentaire(@PathVariable Long id) {
-//        commentairesRepository.deleteById(id);
-//    }
+    private final ImagesRepository imagesRepository;
+
+    ImagesController(ImagesRepository imagesRepository) {
+        this.imagesRepository = imagesRepository;
+    }
+
+    @GetMapping("/images")
+    List<Images> all() {
+        return imagesRepository.findAll();
+    }
+
+    @PostMapping("/images")
+    Images newImage(@RequestBody Images newImage) {
+        return imagesRepository.save(newImage);
+    }
+
+    @GetMapping("images/{id}")
+    Images one(@PathVariable Long id) {
+
+        return imagesRepository.findById(id)
+                .orElseThrow(() -> new ImagesNotFoundException(id));
+    }
+
+    @PutMapping("/images/{id}")
+    Images replaceImage(@RequestBody Images newImage, @PathVariable Long id) {
+
+        return imagesRepository.findById(id)
+                .map(image -> {
+                    image.setFilename(newImage.getFilename());
+                    image.setMaison(newImage.getMaison());
+                    image.setCommentaires(newImage.getCommentaires());
+                    image.setMessages(newImage.getMessages());
+                    return imagesRepository.save(image);
+                })
+                .orElseGet(() -> {
+                    newImage.setId(id);
+                    return imagesRepository.save(newImage);
+                });
+    }
+
+    @DeleteMapping("/images/{id}")
+    void deleteImage(@PathVariable Long id) {
+        imagesRepository.deleteById(id);
+    }
 }
