@@ -136,4 +136,15 @@ public class Maisons {
     public String toString() {
         return "Maison{" + "id=" + this.id + ", titre='" + this.titre + '\'' + ", description='" + this.description + '\'' + '}';
     }
+
+    private List<Reservations> reservations;
+
+    @OneToMany
+    public List<Reservations> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservations> reservations) {
+        this.reservations = reservations;
+    }
 }

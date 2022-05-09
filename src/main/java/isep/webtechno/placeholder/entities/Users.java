@@ -83,4 +83,15 @@ public class Users {
     public void setMaisons(List<isep.webtechno.placeholder.entities.Maisons> maisons) {
         Maisons = maisons;
     }
+
+    private List<Reservations> oneToMany;
+
+    @OneToMany
+    public List<Reservations> getOneToMany() {
+        return oneToMany;
+    }
+
+    public void setOneToMany(List<Reservations> oneToMany) {
+        this.oneToMany = oneToMany;
+    }
 }
