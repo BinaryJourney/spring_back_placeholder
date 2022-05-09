@@ -1,7 +1,9 @@
 package isep.webtechno.placeholder.entities;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
+import isep.webtechno.placeholder.entities.Images;
 
 @Entity(name = "Tags")
 public class Tags {

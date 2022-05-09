@@ -2,6 +2,8 @@ package isep.webtechno.placeholder.entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+import isep.webtechno.placeholder.entities.Images;
 
 @Entity(name = "Commentaires")
 public class Commentaires {
@@ -71,6 +73,14 @@ public class Commentaires {
         this.maison = maison;
     }
 
-    //TODO Commentaire.image + Commentaire.toString
+    private List<Images> Images;
 
+    @OneToMany
+    public List<Images> getImages() {
+        return Images;
+    }
+
+    public void setImages(List<Images> images) {
+        Images = images;
+    }
 }

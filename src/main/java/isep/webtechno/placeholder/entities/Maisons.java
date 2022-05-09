@@ -2,6 +2,7 @@ package isep.webtechno.placeholder.entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 @Entity(name = "Maisons")
@@ -103,6 +104,28 @@ public class Maisons {
 
     public void setTags(Set<Tags> tags) {
         this.tags = tags;
+    }
+
+    private List<Images> Images;
+
+    @OneToMany
+    public List<Images> getImages() {
+        return Images;
+    }
+
+    public void setImages(List<Images> images) {
+        Images = images;
+    }
+
+    private List<isep.webtechno.placeholder.entities.Commentaires> Commentaires;
+
+    @OneToMany
+    public List<isep.webtechno.placeholder.entities.Commentaires> getCommentaires() {
+        return Commentaires;
+    }
+
+    public void setCommentaires(List<isep.webtechno.placeholder.entities.Commentaires> commentaires) {
+        Commentaires = commentaires;
     }
 
     // TODO Maison.images

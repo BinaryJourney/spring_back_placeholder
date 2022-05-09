@@ -2,6 +2,8 @@ package isep.webtechno.placeholder.entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+import isep.webtechno.placeholder.entities.Images;
 
 @Entity(name = "Messages")
 public class Messages {
@@ -60,5 +62,16 @@ public class Messages {
 
     public void setReceivingUser(Users receivingUser) {
         this.receivingUser = receivingUser;
+    }
+
+    private List<Images> Images;
+
+    @OneToMany
+    public List<Images> getImages() {
+        return Images;
+    }
+
+    public void setImages(List<Images> images) {
+        Images = images;
     }
 }

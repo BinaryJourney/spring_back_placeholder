@@ -1,6 +1,7 @@
 package isep.webtechno.placeholder.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity(name = "Users")
 public class Users {
@@ -70,5 +71,16 @@ public class Users {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    private List<isep.webtechno.placeholder.entities.Maisons> Maisons;
+
+    @OneToMany
+    public List<isep.webtechno.placeholder.entities.Maisons> getMaisons() {
+        return Maisons;
+    }
+
+    public void setMaisons(List<isep.webtechno.placeholder.entities.Maisons> maisons) {
+        Maisons = maisons;
     }
 }
