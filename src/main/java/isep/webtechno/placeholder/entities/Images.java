@@ -41,7 +41,7 @@ public class Images {
 
     private Maisons maison;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     public Maisons getMaison() {
         return maison;
     }

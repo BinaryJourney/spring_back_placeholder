@@ -41,6 +41,13 @@ public class Commentaires {
         this.text = text;
     }
 
+    private String titre;
+
+    @Column(columnDefinition = "TEXT",nullable = true)
+    public String getTitre(){return titre;}
+
+    public void setTitre(String titre){this.titre=titre;}
+
     private LocalDateTime timestamp;
 
     @Column(columnDefinition = "TIMESTAMP", nullable = false)
@@ -53,7 +60,7 @@ public class Commentaires {
     }
 
     private Users users;
-    @ManyToOne
+    @ManyToOne(optional = false)
     public Users getUsers() {
         return users;
     }
@@ -64,7 +71,7 @@ public class Commentaires {
 
     private Maisons maison;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     public Maisons getMaison() {
         return maison;
     }

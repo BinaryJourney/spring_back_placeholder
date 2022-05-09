@@ -64,7 +64,7 @@ public class Maisons {
 
     private LocalDate dateDispoDebut;
 
-    @Column(columnDefinition = "DATE", nullable = true)
+    @Column(columnDefinition = "DATE", nullable = false)
     public LocalDate getDateDispoDebut() {
         return dateDispoDebut;
     }
@@ -75,7 +75,7 @@ public class Maisons {
 
     private LocalDate dateDispoFin;
 
-    @Column(columnDefinition = "DATE", nullable = true)
+    @Column(columnDefinition = "DATE", nullable = false)
     public LocalDate getDateDispoFin() {
         return dateDispoFin;
     }
@@ -86,7 +86,7 @@ public class Maisons {
 
     private Users user;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     public Users getUser() {
         return user;
     }

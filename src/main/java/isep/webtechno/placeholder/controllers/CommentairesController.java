@@ -44,6 +44,7 @@ public class CommentairesController {
                     commentaire.setTimestamp(newCommentaire.getTimestamp());
                     commentaire.setUsers(newCommentaire.getUsers());
                     commentaire.setMaison(newCommentaire.getMaison());
+                    commentaire.setTitre(newCommentaire.getTitre());
                     return commentairesRepository.save(commentaire);
                 })
                 .orElseGet(() -> {
