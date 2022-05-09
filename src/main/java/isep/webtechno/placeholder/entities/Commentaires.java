@@ -60,14 +60,14 @@ public class Commentaires {
         this.users = users;
     }
 
-    private Maison maison;
+    private Maisons maison;
 
     @ManyToOne
-    public Maison getMaison() {
+    public Maisons getMaison() {
         return maison;
     }
 
-    public void setMaison(Maison maison) {
+    public void setMaison(Maisons maison) {
         this.maison = maison;
     }
 

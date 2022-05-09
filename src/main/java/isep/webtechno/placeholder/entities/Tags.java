@@ -51,7 +51,7 @@ public class Tags {
         isOptionnel = optionnel;
     }
 
-    private Set<Maison> maison;
+    private Set<Maisons> maison;
 
     @ManyToMany
     @JoinTable(
@@ -59,11 +59,11 @@ public class Tags {
             joinColumns = @JoinColumn(name = "tags_id"),
             inverseJoinColumns = @JoinColumn(name = "maison_id")
     )
-    public Set<Maison> getMaison() {
+    public Set<Maisons> getMaison() {
         return maison;
     }
 
-    public void setMaison(Set<Maison> maison) {
+    public void setMaison(Set<Maisons> maison) {
         this.maison = maison;
     }
 }

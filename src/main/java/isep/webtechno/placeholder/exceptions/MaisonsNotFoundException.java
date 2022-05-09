@@ -1,8 +1,8 @@
 package isep.webtechno.placeholder.exceptions;
 
-public class MaisonNotFoundException extends RuntimeException {
+public class MaisonsNotFoundException extends RuntimeException {
 
-    public MaisonNotFoundException(Long id) {
+    public MaisonsNotFoundException(Long id) {
         super("Ne parviens pas à trouver la maison " + id);
     }
 }

@@ -4,12 +4,12 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
-@Entity(name = "Maison")
-public class Maison {
+@Entity(name = "Maisons")
+public class Maisons {
 
-    public Maison() {}
+    public Maisons() {}
 
-    public Maison(String titre, String description, String listeServices) {
+    public Maisons(String titre, String description, String listeServices) {
 
         this.titre = titre;
         this.description = description;
