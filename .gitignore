@@ -27,3 +27,6 @@ hs_err_pid*
 replay_pid*
 .idea/misc.xml
 .idea/vcs.xml
+
+#config db
+src/main/resources/application.properties
