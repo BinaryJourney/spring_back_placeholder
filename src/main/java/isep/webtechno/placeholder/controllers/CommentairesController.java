@@ -52,7 +52,7 @@ public class CommentairesController {
                 });
     }
 
-    @DeleteMapping("/maisons/{id}")
+    @DeleteMapping("/commentaires/{id}")
     void deleteCommentaire(@PathVariable Long id) {
         commentairesRepository.deleteById(id);
     }

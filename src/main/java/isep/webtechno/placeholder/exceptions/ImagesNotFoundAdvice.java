@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-class CommentairesNotFoundAdvice {
+class ImagesNotFoundAdvice {
 
     @ResponseBody
-    @ExceptionHandler(CommentairesNotFoundException.class)
+    @ExceptionHandler(ImagesNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    String commentaireNotFoundHandler(CommentairesNotFoundException ex) {
+    String commentaireNotFoundHandler(ImagesNotFoundException ex) {
         return ex.getMessage();
     }
 }
