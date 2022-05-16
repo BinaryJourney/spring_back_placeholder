@@ -8,6 +8,15 @@ public class Users {
 
     private Long id;
 
+    public Users(){}
+
+    public Users(String prenom,String nom,String email,String password,String role){
+        this.prenom=prenom;
+        this.nom=nom;
+        this.email=email;
+        this.password=password;
+        this.role=role;
+    }
     @GeneratedValue
     @Id
     public Long getId() {
