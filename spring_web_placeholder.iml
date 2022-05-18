@@ -136,7 +136,6 @@
     <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.13.2" level="project" />
     <orderEntry type="library" name="Maven: io.github.classgraph:classgraph:4.8.143" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.18" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.18" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.18" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.18" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.18" level="project" />

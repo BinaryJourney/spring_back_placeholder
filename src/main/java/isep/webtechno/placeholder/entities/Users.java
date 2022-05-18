@@ -1,10 +1,12 @@
 package isep.webtechno.placeholder.entities;
 
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "Users")
-public class Users {
+public class Users implements UserDetails {
 
     private Long id;
 
