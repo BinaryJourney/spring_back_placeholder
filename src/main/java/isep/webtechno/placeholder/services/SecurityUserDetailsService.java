@@ -15,7 +15,7 @@ public class SecurityUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email)
             throws UsersNotFoundException {
         Users user = userRepository.findByEmail(email)
-                .orElseThrow(()-< new UsersNotFoundException("User not present"));
+                .orElseThrow(()-> new UsersNotFoundException("User not present"));
         return user;
     }
     public void createUser(UserDetails user) {
