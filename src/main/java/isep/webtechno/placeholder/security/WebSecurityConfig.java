@@ -1,4 +1,4 @@
-package isep.webtechno.placeholder.configuration;
+package isep.webtechno.placeholder.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
