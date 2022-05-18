@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "Users")
-public class Users implements UserDetails {
+public class Users {
 
     private Long id;
 
