@@ -3,7 +3,6 @@ package isep.webtechno.placeholder.entities;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import isep.webtechno.placeholder.entities.Images;
 
 @Entity(name = "Commentaires")
 public class Commentaires {
@@ -59,13 +58,13 @@ public class Commentaires {
         this.timestamp = timestamp;
     }
 
-    private Users users;
+    private User_bak users;
     @ManyToOne(optional = false)
-    public Users getUsers() {
+    public User_bak getUsers() {
         return users;
     }
 
-    public void setUsers(Users users) {
+    public void setUsers(User_bak users) {
         this.users = users;
     }
 

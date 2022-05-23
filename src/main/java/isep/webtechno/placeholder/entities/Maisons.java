@@ -84,14 +84,14 @@ public class Maisons {
         this.dateDispoFin = dateDispoFin;
     }
 
-    private Users user;
+    private User_bak user;
 
     @ManyToOne(optional = false)
-    public Users getUser() {
+    public User_bak getUser() {
         return user;
     }
 
-    public void setUser(Users user) {
+    public void setUser(User_bak user) {
         this.user = user;
     }
 

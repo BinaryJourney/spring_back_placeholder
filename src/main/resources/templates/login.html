@@ -1,20 +1,37 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+<html class="h-100" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
   <title>Spring Security Example </title>
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 </head>
-<body>
+<body class="h-100">
 <div th:if="${param.error}">
   Invalid username and password.
 </div>
 <div th:if="${param.logout}">
   You have been logged out.
 </div>
-<form th:action="@{/login}" method="post">
-  <div><label> User Name : <input type="text" name="username"/> </label></div>
-  <div><label> Password: <input type="password" name="password"/> </label></div>
-  <div><input type="submit" value="Sign In"/></div>
-</form>
+
+<div class="w-100 h-100 d-flex">
+  <form class="m-auto p-3" th:action="@{/login}" method="post">
+    <div class="mb-3">
+      <label for="usernameInput" class="form-label"> User Name :</label>
+      <input class="form-control" type="text" name="usernameInput" id="usernameInput">
+    </div>
+    <div class="mb-3">
+      <label for="passwordInput" class="form-label"> Password:</label>
+      <input class="form-control" type="password" name="passwordInput" id="passwordInput">
+    </div>
+    <div class="mb-3 form-check">
+      <input type="checkbox" class="form-check-input" id="rememberMeInput" name="rememberMeInput">
+      <label class="form-check-label" for="rememberMeInput">Remember Me</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
 </body>
 </html>

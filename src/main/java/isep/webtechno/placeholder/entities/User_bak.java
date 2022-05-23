@@ -1,18 +1,16 @@
 package isep.webtechno.placeholder.entities;
 
-import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "Users")
-public class Users {
+public class User_bak {
 
     private Long id;
 
-    public Users(){}
+    public User_bak(){}
 
-    public Users(String prenom,String nom,String email,String password,String role){
+    public User_bak(String prenom, String nom, String email, String password, String role){
         this.prenom=prenom;
         this.nom=nom;
         this.email=email;

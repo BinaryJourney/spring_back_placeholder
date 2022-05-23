@@ -1,8 +1,8 @@
 package isep.webtechno.placeholder.controllers;
 
-import isep.webtechno.placeholder.entities.Users;
+import isep.webtechno.placeholder.entities.User_bak;
 import isep.webtechno.placeholder.exceptions.UsersNotFoundException;
-import isep.webtechno.placeholder.repositories.UsersRepository;
+import isep.webtechno.placeholder.repositories.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,31 +10,31 @@ import java.util.List;
 @RestController
 public class UsersController {
 
-    private final UsersRepository usersRepository;
+    private final UserRepository usersRepository;
 
-    UsersController(UsersRepository userRepository) {
+    UsersController(UserRepository userRepository) {
         this.usersRepository = userRepository;
     }
 
     @GetMapping("/Users")
-    List<Users> all() {
+    List<User_bak> all() {
         return usersRepository.findAll();
     }
 
     @PostMapping("/Users")
-    Users newUser(@RequestBody Users newUser) {
+    User_bak newUser(@RequestBody User_bak newUser) {
         return usersRepository.save(newUser);
     }
 
     @GetMapping("Users/{id}")
-    Users one(@PathVariable Long id) {
+    User_bak one(@PathVariable Long id) {
 
         return usersRepository.findById(id)
                 .orElseThrow(() -> new UsersNotFoundException(id));
     }
 
     @PutMapping("/Users/{id}")
-    Users replaceUser(@RequestBody Users newUser, @PathVariable Long id) {
+    User_bak replaceUser(@RequestBody User_bak newUser, @PathVariable Long id) {
 
         return usersRepository.findById(id)
                 .map(user -> {

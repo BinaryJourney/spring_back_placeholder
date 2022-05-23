@@ -1,7 +1,5 @@
 package isep.webtechno.placeholder.configuration;
 
-import isep.webtechno.placeholder.entities.Maisons;
-import isep.webtechno.placeholder.entities.Users;
 import isep.webtechno.placeholder.repositories.MaisonsRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

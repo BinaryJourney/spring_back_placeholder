@@ -3,7 +3,6 @@ package isep.webtechno.placeholder.entities;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
-import isep.webtechno.placeholder.entities.Images;
 
 @Entity(name = "Messages")
 public class Messages {
@@ -42,25 +41,25 @@ public class Messages {
         this.timestamp = timestamp;
     }
 
-    private Users sendingUser;
+    private User_bak sendingUser;
 
     @ManyToOne
-    public Users getSendingUser() {
+    public User_bak getSendingUser() {
         return sendingUser;
     }
 
-    public void setSendingUser(Users sendingUser) {
+    public void setSendingUser(User_bak sendingUser) {
         this.sendingUser = sendingUser;
     }
 
-    private Users receivingUser;
+    private User_bak receivingUser;
 
     @ManyToOne
-    public Users getReceivingUser() {
+    public User_bak getReceivingUser() {
         return receivingUser;
     }
 
-    public void setReceivingUser(Users receivingUser) {
+    public void setReceivingUser(User_bak receivingUser) {
         this.receivingUser = receivingUser;
     }
 
