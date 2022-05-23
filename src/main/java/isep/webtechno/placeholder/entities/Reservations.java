@@ -50,14 +50,14 @@ public class Reservations {
         this.endDate = endDate;
     }
 
-    private User_bak user;
+    private User user;
 
     @ManyToOne(optional = false)
-    public User_bak getUser() {
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User_bak user) {
+    public void setUser(User user) {
         this.user = user;
     }
 

@@ -13,7 +13,7 @@ public class UserService implements UserDetailsService {
     private final UserProviderDAO userProviderDAO;
 
     @Autowired
-    public UserService(@Qualifier("fake") UserProviderDAO userProviderDAO) {
+    public UserService(@Qualifier("bd") UserProviderDAO userProviderDAO) {
         this.userProviderDAO = userProviderDAO;
     }
 
@@ -21,6 +21,6 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userProviderDAO.selectUserByUsername(username)
                 .orElseThrow(()
-                        -> new UsernameNotFoundException(String.format("Username %s not found", username)));
+                        -> new UsernameNotFoundException(String.format("Username/Email %s not found", username)));
     }
 }

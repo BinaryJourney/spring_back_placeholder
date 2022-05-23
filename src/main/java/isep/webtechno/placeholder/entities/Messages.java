@@ -41,25 +41,25 @@ public class Messages {
         this.timestamp = timestamp;
     }
 
-    private User_bak sendingUser;
+    private User sendingUser;
 
     @ManyToOne
-    public User_bak getSendingUser() {
+    public User getSendingUser() {
         return sendingUser;
     }
 
-    public void setSendingUser(User_bak sendingUser) {
+    public void setSendingUser(User sendingUser) {
         this.sendingUser = sendingUser;
     }
 
-    private User_bak receivingUser;
+    private User receivingUser;
 
     @ManyToOne
-    public User_bak getReceivingUser() {
+    public User getReceivingUser() {
         return receivingUser;
     }
 
-    public void setReceivingUser(User_bak receivingUser) {
+    public void setReceivingUser(User receivingUser) {
         this.receivingUser = receivingUser;
     }
 

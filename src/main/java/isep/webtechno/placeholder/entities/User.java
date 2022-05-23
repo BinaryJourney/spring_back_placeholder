@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "Users")
-public class User_bak {
+public class User {
 
     private Long id;
 
-    public User_bak(){}
+    public User(){}
 
-    public User_bak(String prenom, String nom, String email, String password, String role){
+    public User(String prenom, String nom, String email, String password, String role){
         this.prenom=prenom;
         this.nom=nom;
         this.email=email;
@@ -82,25 +82,25 @@ public class User_bak {
         this.role = role;
     }
 
-    private List<isep.webtechno.placeholder.entities.Maisons> Maisons;
+    private List<isep.webtechno.placeholder.entities.Maisons> maisons;
 
     @OneToMany
     public List<isep.webtechno.placeholder.entities.Maisons> getMaisons() {
-        return Maisons;
+        return maisons;
     }
 
     public void setMaisons(List<isep.webtechno.placeholder.entities.Maisons> maisons) {
-        Maisons = maisons;
+        this.maisons = maisons;
     }
 
-    private List<Reservations> oneToMany;
+    private List<Reservations> reservations;
 
     @OneToMany
-    public List<Reservations> getOneToMany() {
-        return oneToMany;
+    public List<Reservations> getReservations() {
+        return reservations;
     }
 
-    public void setOneToMany(List<Reservations> oneToMany) {
-        this.oneToMany = oneToMany;
+    public void setReservations(List<Reservations> oneToMany) {
+        this.reservations = oneToMany;
     }
 }

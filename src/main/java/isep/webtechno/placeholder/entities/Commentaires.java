@@ -58,13 +58,13 @@ public class Commentaires {
         this.timestamp = timestamp;
     }
 
-    private User_bak users;
+    private User users;
     @ManyToOne(optional = false)
-    public User_bak getUsers() {
+    public User getUsers() {
         return users;
     }
 
-    public void setUsers(User_bak users) {
+    public void setUsers(User users) {
         this.users = users;
     }
 
