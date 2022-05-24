@@ -1,7 +1,6 @@
 package isep.webtechno.placeholder.controllers;
 
 import isep.webtechno.placeholder.entities.Maisons;
-import isep.webtechno.placeholder.entities.User;
 import isep.webtechno.placeholder.repositories.MaisonsRepository;
 import isep.webtechno.placeholder.security.UserProvider;
 import org.slf4j.Logger;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.security.Principal;
 import java.util.Objects;
 
 @Controller
@@ -37,6 +35,14 @@ public class BaseController {
     }
 
     Logger logger = LoggerFactory.getLogger(BaseController.class);
+
+
+    @RequestMapping("/hometest")
+    public ModelAndView homeTestMapping () {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("hometest");
+        return modelAndView;
+    }
 
     @RequestMapping("/home")
     public ModelAndView homeMapping () {
