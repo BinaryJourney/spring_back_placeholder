@@ -1,6 +1,7 @@
 package isep.webtechno.placeholder.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -9,13 +10,6 @@ import java.util.Set;
 public class Maisons {
 
     public Maisons() {}
-
-    public Maisons(String titre, String description, String listeServices) {
-
-        this.titre = titre;
-        this.description = description;
-        this.listeServices = listeServices;
-    }
 
     private Long id;
 
@@ -32,28 +26,31 @@ public class Maisons {
     private String titre;
 
     @Basic(optional = false)
+    @NotNull
     public String getTitre() {
         return titre;
     }
 
     public void setTitre(String titre) {
-        titre = titre;
+        this.titre = titre;
     }
 
     private String description;
 
     @Column(columnDefinition = "TEXT", nullable = false)
+    @NotNull
     public String getDescription() {
         return description;
     }
 
     public void setDescription(String description) {
-        description = description;
+        this.description = description;
     }
 
     private String listeServices;
 
     @Column(columnDefinition = "TEXT", nullable = false)
+    @NotNull
     public String getListeServices() {
         return listeServices;
     }
@@ -65,6 +62,7 @@ public class Maisons {
     private LocalDate dateDispoDebut;
 
     @Column(columnDefinition = "DATE", nullable = false)
+    @NotNull
     public LocalDate getDateDispoDebut() {
         return dateDispoDebut;
     }
@@ -76,6 +74,7 @@ public class Maisons {
     private LocalDate dateDispoFin;
 
     @Column(columnDefinition = "DATE", nullable = false)
+    @NotNull
     public LocalDate getDateDispoFin() {
         return dateDispoFin;
     }
@@ -87,6 +86,7 @@ public class Maisons {
     private User user;
 
     @ManyToOne(optional = false)
+    @NotNull
     public User getUser() {
         return user;
     }
@@ -108,43 +108,48 @@ public class Maisons {
 
     private List<Images> Images;
 
-    @OneToMany
-    public List<Images> getImages() {
-        return Images;
-    }
-
-    public void setImages(List<Images> images) {
-        Images = images;
-    }
-
-    private List<isep.webtechno.placeholder.entities.Commentaires> Commentaires;
-
-    @OneToMany
-    public List<isep.webtechno.placeholder.entities.Commentaires> getCommentaires() {
-        return Commentaires;
-    }
-
-    public void setCommentaires(List<isep.webtechno.placeholder.entities.Commentaires> commentaires) {
-        Commentaires = commentaires;
-    }
-
-    // TODO Maison.images
-
-    // TODO toutes les relations many-many many-one etc.
+//    @OneToMany
+//    public List<Images> getImages() {
+//        return Images;
+//    }
+//
+//    public void setImages(List<Images> images) {
+//        Images = images;
+//    }
+//
+//    private List<Commentaires> Commentaires;
+//
+//    @OneToMany
+//    public List<Commentaires> getCommentaires() {
+//        return Commentaires;
+//    }
+//
+//    public void setCommentaires(List<Commentaires> commentaires) {
+//        Commentaires = commentaires;
+//    }
 
     @Override
     public String toString() {
-        return "Maison{" + "id=" + this.id + ", titre='" + this.titre + '\'' + ", description='" + this.description + '\'' + '}';
+        return "Maisons{" +
+                "id=" + id +
+                ", titre='" + titre + '\'' +
+                ", description='" + description + '\'' +
+                ", listeServices='" + listeServices + '\'' +
+                ", dateDispoDebut=" + dateDispoDebut +
+                ", dateDispoFin=" + dateDispoFin +
+                '}';
     }
 
-    private List<Reservations> reservations;
 
-    @OneToMany
-    public List<Reservations> getReservations() {
-        return reservations;
-    }
+//    private List<Reservations> reservations;
+//
+//    @OneToMany
+//    public List<Reservations> getReservations() {
+//        return reservations;
+//    }
+//
+//    public void setReservations(List<Reservations> reservations) {
+//        this.reservations = reservations;
+//    }
 
-    public void setReservations(List<Reservations> reservations) {
-        this.reservations = reservations;
-    }
 }
