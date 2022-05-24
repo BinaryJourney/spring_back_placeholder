@@ -31,7 +31,7 @@ public class BDUserDAOService implements UserProviderDAO{
     public Optional<UserProvider> selectUserByUsername(String username) {
         User user = userRepository.findFirstByEmail(username).orElseThrow(()
                 -> new UsernameNotFoundException(String.format("Username/Email %s not found", username)));
-        Optional<UserProvider> userProvider = Optional.of(new UserProvider(user.getEmail(),
+        Optional<UserProvider> userProvider = Optional.of(new UserProvider(user.getId(), user.getEmail(),
                 passwordEncoder.encode(user.getPassword()),
                 Lists.newArrayList(new SimpleGrantedAuthority(user.getRole())),
                 true,

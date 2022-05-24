@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/js/**", "/css/**").permitAll()
-                .antMatchers("/greeting", "/homelist").permitAll()
+                .antMatchers("/greeting").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -39,6 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe()
                 .rememberMeParameter("rememberMeInput")
+                .userDetailsService(userService)
                 .and()
                 .logout()
                 .logoutUrl("/logout")

@@ -51,7 +51,7 @@ public class User {
 
     private String email;
 
-    @Basic(optional = false)
+    @Column(nullable = false, unique = true)
     public String getEmail() {
         return email;
     }

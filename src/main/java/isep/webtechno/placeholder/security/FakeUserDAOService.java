@@ -31,7 +31,7 @@ public class FakeUserDAOService implements UserProviderDAO{
 
     private List<UserProvider> getUsers() {
         List<UserProvider> users = Lists.newArrayList(
-                new UserProvider(
+                new UserProvider(1L,
                         "root",
                         passwordEncoder.encode("root"),
                         Lists.newArrayList(new SimpleGrantedAuthority(ADMIN.name())),
@@ -40,7 +40,7 @@ public class FakeUserDAOService implements UserProviderDAO{
                         true,
                         true
                 ),
-                new UserProvider(
+                new UserProvider(2L,
                         "user",
                         passwordEncoder.encode("user"),
                         Lists.newArrayList(new SimpleGrantedAuthority(USER.name())),

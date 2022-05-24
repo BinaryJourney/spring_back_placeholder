@@ -8,13 +8,15 @@ import java.util.List;
 
 public class UserProvider implements UserDetails {
 
-    public UserProvider(String username,
+    public UserProvider(Long id,
+                        String username,
                         String password,
                         List<? extends GrantedAuthority> grantedAuthorities,
                         boolean isAccountNonExpired,
                         boolean isAccountNonLocked,
                         boolean isCredentialsNonExpired,
                         boolean isEnabled) {
+        this.id = id;
         this.grantedAuthorities = grantedAuthorities;
         this.password = password;
         this.username = username;
@@ -31,6 +33,8 @@ public class UserProvider implements UserDetails {
     private final boolean isAccountNonLocked;
     private final boolean isCredentialsNonExpired;
     private final boolean isEnabled;
+
+    private final Long id;
 
 
     @Override
@@ -66,5 +70,23 @@ public class UserProvider implements UserDetails {
     @Override
     public boolean isEnabled() {
         return isEnabled;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProvider{" +
+                "grantedAuthorities=" + grantedAuthorities +
+                ", password='" + password + '\'' +
+                ", username='" + username + '\'' +
+                ", isAccountNonExpired=" + isAccountNonExpired +
+                ", isAccountNonLocked=" + isAccountNonLocked +
+                ", isCredentialsNonExpired=" + isCredentialsNonExpired +
+                ", isEnabled=" + isEnabled +
+                ", id=" + id +
+                '}';
     }
 }
