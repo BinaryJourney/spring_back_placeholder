@@ -5,6 +5,15 @@ import javax.persistence.*;
 @Entity(name = "Images")
 public class Images {
 
+    public Images(String filename, Maisons maison) {
+        this.filename = filename;
+        this.maison = maison;
+    }
+
+    public Images() {
+
+    }
+
     private Long id;
 
     @GeneratedValue
@@ -41,7 +50,7 @@ public class Images {
 
     private Maisons maison;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     public Maisons getMaison() {
         return maison;
     }

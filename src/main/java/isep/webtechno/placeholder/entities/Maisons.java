@@ -98,8 +98,7 @@ public class Maisons {
 
     private User user;
 
-    @ManyToOne(optional = false)
-    @NotNull
+    @ManyToOne
     public User getUser() {
         return user;
     }
@@ -129,7 +128,7 @@ public class Maisons {
 //    public void setImages(List<Images> images) {
 //        Images = images;
 //    }
-//
+
 //    private List<Commentaires> Commentaires;
 //
 //    @OneToMany

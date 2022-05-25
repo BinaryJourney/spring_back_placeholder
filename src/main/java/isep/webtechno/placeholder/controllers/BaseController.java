@@ -1,9 +1,11 @@
 package isep.webtechno.placeholder.controllers;
 
+import isep.webtechno.placeholder.entities.Images;
 import isep.webtechno.placeholder.entities.Maisons;
 import isep.webtechno.placeholder.entities.User;
 import isep.webtechno.placeholder.exceptions.UsersNotFoundException;
 import isep.webtechno.placeholder.forms.MaisonForm;
+import isep.webtechno.placeholder.repositories.ImagesRepository;
 import isep.webtechno.placeholder.repositories.MaisonsRepository;
 import isep.webtechno.placeholder.repositories.UserRepository;
 import isep.webtechno.placeholder.security.UserProvider;
@@ -20,20 +22,23 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.Objects;
-import java.util.Optional;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.*;
 
 @Controller
 public class BaseController {
 
     @Autowired
     MaisonsRepository maisonsRepository;
-
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    ImagesRepository imagesRepository;
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -92,26 +97,32 @@ public class BaseController {
 //    }
 
     @GetMapping("/houseform")
-    public String houseForm(Model model, MaisonForm maison) {
+    public String houseForm(Model model, Maisons maison/*, MultipartFile[] files*/) {
         model.addAttribute("maison", maison);
-        model.addAttribute("user-id", Objects.requireNonNull(this.getLoggedUserProvider()).getId());
+//        model.addAttribute("files", files);
         return "houseform";
     }
 
     @PostMapping("/houseform")
-    public String houseFormSubmit(@Valid @ModelAttribute("maison") MaisonForm maison, BindingResult bindingResult, Model model) {
+    public String houseFormSubmit(@Valid @ModelAttribute("maison") Maisons maison,
+                                  BindingResult bindingResult, Model model/*, @RequestParam(value = "files") MultipartFile[] files*/) /*throws IOException*/ {
         model.addAttribute("maison", maison);
-        
+//        model.addAttribute("files", files);
+
         if(bindingResult.hasErrors()) {
             return "houseform";
         }
 
         User user = getUserFromUserProvider(Objects.requireNonNull(getLoggedUserProvider()));
-        Maisons maison_entity = new Maisons(maison.getTitre(), maison.getDescription(), maison.getListeServices(),
-                maison.getDateDispoDebut(), maison.getDateDispoFin(), user);
+        maison.setUser(user);
 
         //Rentre la maison en base
-        maisonsRepository.save(maison_entity);
+        maison = maisonsRepository.save(maison);
+
+//        for (int i = 0; i < Arrays.stream(files).count(); i++) {
+//            files[i].transferTo(Paths.get("/images/"));
+//            imagesRepository.save(new Images(files[i].getOriginalFilename(), maison);
+//        }
 
         return "house";
     }
