@@ -36,19 +36,10 @@ public class BaseController {
 
     Logger logger = LoggerFactory.getLogger(BaseController.class);
 
-
-    @RequestMapping("/hometest")
-    public ModelAndView homeTestMapping () {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("hometest");
-        return modelAndView;
-    }
-
-    @RequestMapping("/home")
-    public ModelAndView homeMapping () {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("home");
-        return modelAndView;
+    @GetMapping("/home")
+    public String homeMapping(Model model) {
+        model.addAttribute("metaTitle", "Acceuil - SwapHome");
+        return "home";
     }
 
     @RequestMapping("/houselist")
