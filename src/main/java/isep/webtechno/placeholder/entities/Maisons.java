@@ -1,5 +1,7 @@
 package isep.webtechno.placeholder.entities;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -11,9 +13,18 @@ public class Maisons {
 
     public Maisons() {}
 
+    public Maisons(String titre, String description, String listeServices, LocalDate dateDispoDebut, LocalDate dateDispoFin, User user) {
+        this.titre = titre;
+        this.description = description;
+        this.listeServices = listeServices;
+        this.dateDispoDebut = dateDispoDebut;
+        this.dateDispoFin = dateDispoFin;
+        this.user = user;
+    }
+
     private Long id;
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     public Long getId() {
         return id;
@@ -62,6 +73,7 @@ public class Maisons {
     private LocalDate dateDispoDebut;
 
     @Column(columnDefinition = "DATE", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     public LocalDate getDateDispoDebut() {
         return dateDispoDebut;
@@ -74,6 +86,7 @@ public class Maisons {
     private LocalDate dateDispoFin;
 
     @Column(columnDefinition = "DATE", nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull
     public LocalDate getDateDispoFin() {
         return dateDispoFin;
@@ -106,8 +119,8 @@ public class Maisons {
         this.tags = tags;
     }
 
-    private List<Images> Images;
-
+//    private List<Images> Images;
+//
 //    @OneToMany
 //    public List<Images> getImages() {
 //        return Images;
@@ -137,6 +150,7 @@ public class Maisons {
                 ", listeServices='" + listeServices + '\'' +
                 ", dateDispoDebut=" + dateDispoDebut +
                 ", dateDispoFin=" + dateDispoFin +
+                ", user=" + user +
                 '}';
     }
 

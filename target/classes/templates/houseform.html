@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <h1>Form</h1>
+    <form action="#" th:action="@{/houseform}" th:object="${maison}" method="post">
+        <p>Titre: <input type="text" th:field="*{titre}" /></p>
+        <p th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}">Erreur Titre</p>
+        <p>Description: <input type="text" th:field="*{description}" /></p>
+        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Erreur Titre</p>
+        <p>ListeServices: <input type="text" th:field="*{listeServices}" /></p>
+        <p th:if="${#fields.hasErrors('listeServices')}" th:errors="*{listeServices}">Erreur Titre</p>
+        <p>DateDispoDebut: <input type="date" th:field="*{dateDispoDebut}" /></p>
+        <p th:if="${#fields.hasErrors('dateDispoDebut')}" th:errors="*{dateDispoDebut}">Erreur Titre</p>
+        <p>DateDispoFin: <input type="date" th:field="*{dateDispoFin}" /></p>
+        <p th:if="${#fields.hasErrors('dateDispoFin')}" th:errors="*{dateDispoFin}">Erreur Titre</p>
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+        <p th:if="${#fields.hasAnyErrors()}">Any Error</p>
+    </form>
+</body>
+</html>
