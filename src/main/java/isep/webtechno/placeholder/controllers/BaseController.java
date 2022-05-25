@@ -37,9 +37,21 @@ public class BaseController {
     Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @GetMapping("/home")
-    public String homeMapping(Model model) {
-        model.addAttribute("metaTitle", "Acceuil - SwapHome");
+    public String homePageMapping(Model model) {
+        model.addAttribute("metaTitle", "SwapHome - Acceuil");
         return "home";
+    }
+
+    @GetMapping("/CGU")
+    public String CGUMapping(Model model) {
+        model.addAttribute("metaTitle", "SwapHome - CGU");
+        return "CGU";
+    }
+
+    @GetMapping("/userlist")
+    public String userlistMapping(Model model) {
+        model.addAttribute("metaTitle", "SwapHome - Liste des utilisateurs");
+        return "userlist";
     }
 
     @RequestMapping("/houselist")
@@ -51,12 +63,12 @@ public class BaseController {
         return modelAndView;
     }
 
-    @RequestMapping("/userlist")
-    public ModelAndView userMapping () {
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("userlist");
-        return modelAndView;
-    }
+//    @RequestMapping("/userlist")
+//    public ModelAndView userMapping () {
+//        ModelAndView modelAndView = new ModelAndView();
+//        modelAndView.setViewName("userlist");
+//        return modelAndView;
+//    }
 
     @GetMapping("/houseform")
     public String houseForm(Model model) {

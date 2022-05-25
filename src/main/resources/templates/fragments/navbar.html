@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-lg bg-light" th:fragment="navbar">
     <div class="container-fluid">
-        <a class="navbar-brand" href="home.html">SwapHome</a>
+        <a class="navbar-brand" th:href="@{/home}">SwapHome</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="houselist.html">Liste des maisons</a>
+                    <a class="nav-link active" aria-current="page" th:href="@{/houselist}">Liste des maisons</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="login.html">Se connecter</a>
+                    <a class="nav-link active" th:href="@{/login}">Se connecter</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link active">S'enregistrer</a>
