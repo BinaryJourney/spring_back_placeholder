@@ -8,9 +8,18 @@ import isep.webtechno.placeholder.entities.Images;
 @Entity(name = "Tags")
 public class Tags {
 
+    public Tags(String type, String libelle) {
+        this.type = type;
+        this.libelle = libelle;
+    }
+
+    public Tags() {
+
+    }
+
     private Long id;
 
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     public Long getId() {
         return id;
@@ -44,7 +53,7 @@ public class Tags {
 
     private Boolean isOptionnel;
 
-    @Basic(optional = false)
+    @Basic
     public Boolean getOptionnel() {
         return isOptionnel;
     }

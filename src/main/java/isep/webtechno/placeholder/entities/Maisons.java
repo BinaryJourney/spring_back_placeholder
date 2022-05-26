@@ -158,6 +158,7 @@ public class Maisons {
                 ", dateDispoFin=" + dateDispoFin +
                 ", user=" + user +
                 ", images" + images +
+                ", tags" + tags +
                 '}';
     }
 

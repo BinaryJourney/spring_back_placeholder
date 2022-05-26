@@ -17,6 +17,14 @@
         <p th:if="${#fields.hasErrors('dateDispoDebut')}" th:errors="*{dateDispoDebut}">Erreur Titre</p>
         <p>DateDispoFin: <input type="date" th:field="*{dateDispoFin}" /></p>
         <p th:if="${#fields.hasErrors('dateDispoFin')}" th:errors="*{dateDispoFin}">Erreur Titre</p>
+        <p>
+            Tags :
+            <select type="date" th:field="*{tags}" multiple>
+                <option value="">Choose..</option>
+                <option th:each="tag: ${tags}" th:value="${tag.id}" th:text="${tag.libelle}" />
+            </select>
+        </p>
+        <p th:if="${#fields.hasErrors('tags')}" th:errors="*{tags}">Erreur Titre</p>
         <p>Upload one or multiple files : <input type="file" name="files" multiple /></p>
 
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>

@@ -2,11 +2,13 @@ package isep.webtechno.placeholder.controllers;
 
 import isep.webtechno.placeholder.entities.Images;
 import isep.webtechno.placeholder.entities.Maisons;
+import isep.webtechno.placeholder.entities.Tags;
 import isep.webtechno.placeholder.entities.User;
 import isep.webtechno.placeholder.exceptions.UsersNotFoundException;
 import isep.webtechno.placeholder.forms.MaisonForm;
 import isep.webtechno.placeholder.repositories.ImagesRepository;
 import isep.webtechno.placeholder.repositories.MaisonsRepository;
+import isep.webtechno.placeholder.repositories.TagsRepository;
 import isep.webtechno.placeholder.repositories.UserRepository;
 import isep.webtechno.placeholder.security.UserProvider;
 import org.slf4j.Logger;
@@ -41,6 +43,9 @@ public class BaseController {
     UserRepository userRepository;
     @Autowired
     ImagesRepository imagesRepository;
+
+    @Autowired
+    TagsRepository tagsRepository;
 
     public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/images";
 
@@ -103,6 +108,8 @@ public class BaseController {
     @GetMapping("/houseform")
     public String houseForm(Model model, Maisons maison) {
         model.addAttribute("maison", maison);
+        List<Tags> tagsList = tagsRepository.findAll();
+        model.addAttribute("tags", tagsList);
         return "houseform";
     }
 
@@ -110,6 +117,8 @@ public class BaseController {
     public String houseFormSubmit(@Valid @ModelAttribute("maison") Maisons maison,
                                   BindingResult bindingResult, Model model, @RequestParam(value = "files") MultipartFile[] files) throws IOException {
         model.addAttribute("maison", maison);
+        List<Tags> tagsList = tagsRepository.findAll();
+        model.addAttribute("tags", tagsList);
 
         if(bindingResult.hasErrors()) {
             return "houseform";
@@ -133,7 +142,7 @@ public class BaseController {
             imagesList.add(imagesRepository.save(temp_image));
             maison.addImages(temp_image);
         }
-        logger.info(maison.getImages().toString());
+        logger.info(maison.toString());
         model.addAttribute("uploadedFiles", imagesList);
 
         return "house";
