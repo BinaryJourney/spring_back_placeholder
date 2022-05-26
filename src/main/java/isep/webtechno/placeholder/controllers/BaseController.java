@@ -5,7 +5,6 @@ import isep.webtechno.placeholder.entities.Maisons;
 import isep.webtechno.placeholder.entities.Tags;
 import isep.webtechno.placeholder.entities.User;
 import isep.webtechno.placeholder.exceptions.UsersNotFoundException;
-import isep.webtechno.placeholder.forms.MaisonForm;
 import isep.webtechno.placeholder.repositories.ImagesRepository;
 import isep.webtechno.placeholder.repositories.MaisonsRepository;
 import isep.webtechno.placeholder.repositories.TagsRepository;
@@ -18,7 +17,6 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -108,8 +106,15 @@ public class BaseController {
     @GetMapping("/houseform")
     public String houseForm(Model model, Maisons maison) {
         model.addAttribute("maison", maison);
-        List<Tags> tagsList = tagsRepository.findAll();
-        model.addAttribute("tags", tagsList);
+
+        List<List<Tags>> typeTagsList = new ArrayList<>();
+        typeTagsList.add(tagsRepository.findAllByType("Salle de bain"));
+        typeTagsList.add(tagsRepository.findAllByType("Chambre et linge"));
+        typeTagsList.add(tagsRepository.findAllByType("Divertissement"));
+        typeTagsList.add(tagsRepository.findAllByType("Famille"));
+        typeTagsList.add(tagsRepository.findAllByType("Chauffage et climatisation"));
+        model.addAttribute("tagTypesList", typeTagsList);
+
         return "houseform";
     }
 
@@ -117,8 +122,14 @@ public class BaseController {
     public String houseFormSubmit(@Valid @ModelAttribute("maison") Maisons maison,
                                   BindingResult bindingResult, Model model, @RequestParam(value = "files") MultipartFile[] files) throws IOException {
         model.addAttribute("maison", maison);
-        List<Tags> tagsList = tagsRepository.findAll();
-        model.addAttribute("tags", tagsList);
+
+        List<List<Tags>> typeTagsList = new ArrayList<>();
+        typeTagsList.add(tagsRepository.findAllByType("Salle de bain"));
+        typeTagsList.add(tagsRepository.findAllByType("Chambre et linge"));
+        typeTagsList.add( tagsRepository.findAllByType("Divertissement"));
+        typeTagsList.add(tagsRepository.findAllByType("Famille"));
+        typeTagsList.add(tagsRepository.findAllByType("Chauffage et climatisation"));
+        model.addAttribute("tagTypesList", typeTagsList);
 
         if(bindingResult.hasErrors()) {
             return "houseform";
