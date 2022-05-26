@@ -10,6 +10,10 @@ public class Images {
         this.maison = maison;
     }
 
+    public Images(String filename) {
+        this.filename = filename;
+    }
+
     public Images() {
 
     }
@@ -50,7 +54,8 @@ public class Images {
 
     private Maisons maison;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "maison_id")
     public Maisons getMaison() {
         return maison;
     }
@@ -68,5 +73,12 @@ public class Images {
 
     public void setMessages(Messages messages) {
         this.messages = messages;
+    }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if (filename == null || id == null) return null;
+
+        return "/images/" + filename;
     }
 }

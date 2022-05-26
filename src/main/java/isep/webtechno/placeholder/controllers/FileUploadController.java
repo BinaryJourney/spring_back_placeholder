@@ -19,13 +19,16 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 public class FileUploadController {
 
+    @Autowired
+    ImagesRepository imagesRepository;
     Logger logger = LoggerFactory.getLogger(BaseController.class);;
 
-    public static String uploadDirectory = System.getProperty("user.dir")+"/upload";
+    public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/images";
 
     @GetMapping("/uploadImage")
     public String uploadPage(Model model)
@@ -37,11 +40,15 @@ public class FileUploadController {
     @PostMapping("/uploadImage")
     public String uploadImage(@RequestParam("files") MultipartFile[] files, Model model) throws IOException {
         StringBuilder fileNames = new StringBuilder();
+        List<Images> imagesList = new ArrayList<>();
+        String randomUUID = UUID.randomUUID().toString();
         for(MultipartFile file : files) {
-            Path fileNameAndPath = Paths.get(uploadDirectory, file.getOriginalFilename());
+            Path fileNameAndPath = Paths.get(uploadDirectory, randomUUID + file.getOriginalFilename());
             fileNames.append(file.getOriginalFilename()+" ");
             Files.write(fileNameAndPath, file.getBytes());
+            imagesList.add(imagesRepository.save(new Images(randomUUID + file.getOriginalFilename())));
         }
+        model.addAttribute("uploadedFiles", imagesList);
         model.addAttribute("msg", "Successfully uploaded files" + fileNames.toString());
         return "fileUploadView";
     }

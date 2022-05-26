@@ -27,6 +27,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -39,6 +41,8 @@ public class BaseController {
     UserRepository userRepository;
     @Autowired
     ImagesRepository imagesRepository;
+
+    public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/images";
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {
@@ -97,17 +101,15 @@ public class BaseController {
 //    }
 
     @GetMapping("/houseform")
-    public String houseForm(Model model, Maisons maison/*, MultipartFile[] files*/) {
+    public String houseForm(Model model, Maisons maison) {
         model.addAttribute("maison", maison);
-//        model.addAttribute("files", files);
         return "houseform";
     }
 
     @PostMapping("/houseform")
     public String houseFormSubmit(@Valid @ModelAttribute("maison") Maisons maison,
-                                  BindingResult bindingResult, Model model/*, @RequestParam(value = "files") MultipartFile[] files*/) /*throws IOException*/ {
+                                  BindingResult bindingResult, Model model, @RequestParam(value = "files") MultipartFile[] files) throws IOException {
         model.addAttribute("maison", maison);
-//        model.addAttribute("files", files);
 
         if(bindingResult.hasErrors()) {
             return "houseform";
@@ -116,13 +118,23 @@ public class BaseController {
         User user = getUserFromUserProvider(Objects.requireNonNull(getLoggedUserProvider()));
         maison.setUser(user);
 
-        //Rentre la maison en base
+        /** Rentre la maison en base **/
         maison = maisonsRepository.save(maison);
 
-//        for (int i = 0; i < Arrays.stream(files).count(); i++) {
-//            files[i].transferTo(Paths.get("/images/"));
-//            imagesRepository.save(new Images(files[i].getOriginalFilename(), maison);
-//        }
+        StringBuilder fileNames = new StringBuilder();
+        List<Images> imagesList = new ArrayList<>();
+        String randomUUID = UUID.randomUUID().toString();
+        Images temp_image;
+        for(MultipartFile file : files) {
+            Path fileNameAndPath = Paths.get(uploadDirectory, randomUUID + file.getOriginalFilename());
+            fileNames.append(file.getOriginalFilename()+" ");
+            Files.write(fileNameAndPath, file.getBytes());
+            temp_image = new Images(randomUUID + file.getOriginalFilename(), maison);
+            imagesList.add(imagesRepository.save(temp_image));
+            maison.addImages(temp_image);
+        }
+        logger.info(maison.getImages().toString());
+        model.addAttribute("uploadedFiles", imagesList);
 
         return "house";
     }

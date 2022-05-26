@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -118,16 +119,22 @@ public class Maisons {
         this.tags = tags;
     }
 
-//    private List<Images> Images;
-//
-//    @OneToMany
-//    public List<Images> getImages() {
-//        return Images;
-//    }
-//
-//    public void setImages(List<Images> images) {
-//        Images = images;
-//    }
+    private List<Images> images = new ArrayList<>();
+
+    @OneToMany(mappedBy = "maison", cascade = CascadeType.ALL)
+    public List<Images> getImages() {
+        return images;
+    }
+
+    public void setImages(List<Images> images) {
+        this.images = images;
+    }
+    public void addImages(Images image){
+        //As said Hibernate will ignore it when persist this relationship.
+        //Add it mainly for the consistency of this relationship for both side in the Java instance
+        this.images.add(image);
+//        image.setMaison(this);
+    }
 
 //    private List<Commentaires> Commentaires;
 //
@@ -150,6 +157,7 @@ public class Maisons {
                 ", dateDispoDebut=" + dateDispoDebut +
                 ", dateDispoFin=" + dateDispoFin +
                 ", user=" + user +
+                ", images" + images +
                 '}';
     }
 
