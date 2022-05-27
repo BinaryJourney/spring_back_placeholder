@@ -53,12 +53,4 @@ class LoadDatabase {
 
         };
     }
-
-    @Bean
-    CommandLineRunner initDatabase3(MaisonsRepository maisonsRepository) {
-
-        return args -> {
-            log.info("Preloading " + maisonsRepository.save(new Maisons("Titre", "Description", "ListeServices", LocalDate.of(2020, 03, 02), LocalDate.of(2020, 03, 02), maxAdmin )));
-        };
-    }
 }

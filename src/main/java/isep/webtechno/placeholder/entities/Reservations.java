@@ -61,6 +61,7 @@ public class Reservations {
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", referencedColumnName = "id")
     public User getUser() {
         return user;
     }
@@ -72,6 +73,7 @@ public class Reservations {
     private Maisons maison;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name="maison_id", referencedColumnName = "id")
     public Maisons getMaison() {
         return maison;
     }

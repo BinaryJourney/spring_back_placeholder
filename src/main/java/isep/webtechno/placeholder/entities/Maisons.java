@@ -171,7 +171,7 @@ public class Maisons {
 
     private List<Reservations> reservations;
 
-    @OneToMany(mappedBy = "maison", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Reservations.class, mappedBy = "maison", cascade = CascadeType.ALL)
     public List<Reservations> getReservations() {
         return reservations;
     }

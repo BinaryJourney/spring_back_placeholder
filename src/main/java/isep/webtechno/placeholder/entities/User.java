@@ -95,12 +95,25 @@ public class User {
 
     private List<Reservations> reservations;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(targetEntity = Reservations.class, mappedBy = "user", cascade = CascadeType.ALL)
     public List<Reservations> getReservations() {
         return reservations;
     }
 
     public void setReservations(List<Reservations> oneToMany) {
         this.reservations = oneToMany;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", maisons=" + maisons +
+                '}';
     }
 }

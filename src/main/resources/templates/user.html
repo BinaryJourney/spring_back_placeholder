@@ -5,17 +5,53 @@
       layout:decorate="/layouts/default">
 <body>
 <div id="page" layout:fragment="content">
-    <div class="container mt-5">
-        <div class="row d-flex justify-content-center">
-            <div class="col-md-7">
-                <div class="card p-3 py-4">
-                    <div class="text-center mt-3">
-                        <span class="bg-secondary p-1 px-4 rounded text-white" th:with="roleLC=${#strings.toLowerCase(user.role)}" th:text="${#strings.capitalize(roleLC)}"> </span>
-                        <h5 class="my-2" th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></h5>
-                        <div class="buttons">
-                            <button class="btn btn-outline-primary px-4" disabled>Message</button>
+    <div class="container">
+        <div class="container mt-5">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-7">
+                    <div class="card p-3 py-4">
+                        <div class="text-center mt-3">
+                            <span class="bg-secondary p-1 px-4 rounded text-white" th:with="roleLC=${#strings.toLowerCase(user.role)}" th:text="${#strings.capitalize(roleLC)}"> </span>
+                            <h5 class="my-2" th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></h5>
+                            <div class="buttons">
+                                <button class="btn btn-outline-primary px-4" disabled>Message</button>
+                            </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+        <div class="container my-3">
+            <div class="row" th:each="reservation, i : ${reservations}">
+                <div class="col" th:text="'Reservation #' + ${i.index}"></div>
+                <div class="col" th:text="'Debut ' + ${reservation.startDate}"></div>
+                <div class="col" th:text="'Fin ' + ${reservation.endDate}"></div>
+                <th:block th:switch="${reservation.isValidated}">
+                    <div class="col" th:case="'true'">
+                        Statut : Validé
+                    </div>
+                    <div class="col" th:case="'false'">
+                        Statut : Refusé
+                    </div>
+                    <div class="col" th:case="null">
+                        Statut : En attente
+                    </div>
+                </th:block>
+            </div>
+        </div>
+        <div class="container my-3">
+            <div class="row" th:each="maison, j : ${maisons}">
+                <div class="col" th:text="'Maison #' + ${j.index}"></div>
+                <div class="col" th:text="'Titre ' + ${maison.titre}"></div>
+                <a class="col" th:href="'/house/' + ${maison.id}">Lien</a>
+                <div class="row" th:each="reservation2, k : ${reservations}"
+                     th:if="maison.id == reservation2.maison.id">
+                    <div class="col" th:text="'Reservation #' + ${k.index}"></div>
+                    <div class="col" th:text="'Debut ' + ${reservation2.startDate}"></div>
+                    <div class="col" th:text="'Fin ' + ${reservation2.endDate}"></div>
+                    <div class="col" th:text="'Demandeur ' + |${reservation2.user.nom} ${reservation2.user.prenom}|"></div>
+                    <button class="btn btn-primary">Accepter</button>
+                    <button class="btn btn-danger">Refuser</button>
                 </div>
             </div>
         </div>

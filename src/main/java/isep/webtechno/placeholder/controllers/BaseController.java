@@ -94,7 +94,13 @@ public class BaseController {
     @GetMapping("/user/{id}")
     public String userMapping(Model model, @PathVariable Long id) throws Exception {
         User user = userRepository.findById(id).orElseThrow(() -> new Exception("Pas d'utilisateur avec l'id " + id));
+        List<Maisons> maisonsList = maisonsRepository.findByUser(user);
+        List<Reservations> reservationsList = reservationsRepository.findByUser(user);
+
+        model.addAttribute("maisons", maisonsList);
+        model.addAttribute("reservations", reservationsList);
         model.addAttribute("user", user);
+        logger.info(user.toString());
         return "user";
     }
 
@@ -149,12 +155,16 @@ public class BaseController {
         String randomUUID = UUID.randomUUID().toString();
         Images temp_image;
         for(MultipartFile file : files) {
+            if(file.getOriginalFilename().equals("")) break;
             Path fileNameAndPath = Paths.get(uploadDirectory, randomUUID + file.getOriginalFilename());
             fileNames.append(file.getOriginalFilename()+" ");
             Files.write(fileNameAndPath, file.getBytes());
             temp_image = new Images(randomUUID + file.getOriginalFilename(), maison);
             imagesList.add(imagesRepository.save(temp_image));
             maison.addImages(temp_image);
+        }
+        for(Tags tag : maison.getTags()) {
+
         }
         logger.info(maison.toString());
         model.addAttribute("uploadedFiles", imagesList);
@@ -185,8 +195,6 @@ public class BaseController {
         model.addAttribute("reservations",reservations);
         model.addAttribute("routeId", id);
 
-        logger.info(reservations.toString());
-
         if(bindingResult.hasErrors()) {
             return "housereservation";
         }
@@ -197,6 +205,7 @@ public class BaseController {
         reservations.setMaison(maison);
 
         reservationsRepository.save(reservations);
+        logger.info(reservations.toString());
         model.addAttribute("maison", maison);
         attribute.addFlashAttribute("message","Reservation réussie !");
         return "house";
