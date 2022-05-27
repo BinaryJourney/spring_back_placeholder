@@ -28,13 +28,13 @@
                 <div class="col" th:text="'Fin ' + ${reservation.endDate}"></div>
                 <th:block th:switch="${reservation.isValidated}">
                     <div class="col" th:case="'true'">
-                        Statut : En attente
-                    </div>
-                    <div class="col" th:case="'false'">
                         Statut : Validé
                     </div>
-                    <div class="col" th:case="null">
+                    <div class="col" th:case="'false'">
                         Statut : Refusé
+                    </div>
+                    <div class="col" th:case="null">
+                        Statut : En attente
                     </div>
                 </th:block>
             </div>
@@ -45,7 +45,7 @@
                 <div class="col" th:text="'Titre ' + ${maison.titre}"></div>
                 <a class="col" th:href="'/house/' + ${maison.id}">Lien</a>
                 <div class="row" th:each="reservation2, k : ${reservations}"
-                     th:if="maison.id == reservation2.maison.id">
+                     th:if="${maison.id} == ${reservation2.maison.id}">
                     <div class="col" th:text="'Reservation #' + ${k.index}"></div>
                     <div class="col" th:text="'Debut ' + ${reservation2.startDate}"></div>
                     <div class="col" th:text="'Fin ' + ${reservation2.endDate}"></div>
