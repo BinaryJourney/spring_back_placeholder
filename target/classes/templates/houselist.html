@@ -18,18 +18,24 @@
                             <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                                 <div class="media-body order-2 order-lg-1">
                                     <h5 class="mt-0 font-weight-bold mb-2" th:text="${house.titre}">Titre</h5>
-                                    <p class="font-italic text-muted mb-0 small" th:text="${house.description}">Description</p>
-                                    <div class="d-flex align-items-center justify-content-between mt-1">
-                                        <h6 class="font-weight-bold my-2" th:text="${house.listeServices}">Liste des services</h6>
-                                        <ul class="list-inline small">
-                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>
-                                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>
-                                        </ul>
+                                    <p class="font-italic text-muted mb-0 small text-truncate" th:text="${house.description}">Description</p>
+                                    <div class="d-flex align-items-center mt-1">
+                                        <h6 class="font-weight-bold my-2">Services demandés : &nbsp;</h6><br>
+                                        <h6 class="font-weight-bold my-2 text-truncate" th:text="${house.listeServices}">Liste des services</h6>
                                     </div>
-                                </div><img src="/images/piscine_grece.jpg" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
+                                    <div class="d-flex align-items-center mt-1">
+                                            <h6 class="font-weight-bold my-2">Dates de disponibilité : &nbsp;</h6><br>
+                                            <h6 class="font-weight-bold my-2" th:text="${house.dateDispoDebut}">Date de début de disponibilité &nbsp;</h6>
+                                            <h6 class="font-weight-bold my-2" th:text="${house.dateDispoFin}">Date de fin de disponibilité</h6>
+<!--                                        <ul class="list-inline small">-->
+<!--                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>-->
+<!--                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>-->
+<!--                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>-->
+<!--                                            <li class="list-inline-item m-0"><i class="fa fa-star text-success"></i></li>-->
+<!--                                            <li class="list-inline-item m-0"><i class="fa fa-star-o text-gray"></i></li>-->
+<!--                                        </ul>-->
+                                    </div>
+                                </div><img th:src="${house.images}" alt="Generic placeholder image" width="200" class="ml-lg-5 order-1 order-lg-2">
                                 <div class="d-flex align-items-center justify-content-between mt-1">
                                     <a class="btn btn-primary" th:href="@{/userlist}" role="button">Voir le profil</a>
                                 </div>
