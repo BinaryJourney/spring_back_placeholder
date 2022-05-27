@@ -21,7 +21,7 @@ public class Reservations {
 
     private String isValidated;
 
-    @Basic(optional = false)
+    @Basic
     public String getIsValidated() {
         return isValidated;
     }
@@ -54,7 +54,7 @@ public class Reservations {
 
     private User user;
 
-    @ManyToOne(optional = false,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public User getUser() {
         return user;
     }
@@ -72,5 +72,17 @@ public class Reservations {
 
     public void setMaison(Maisons maison) {
         this.maison = maison;
+    }
+
+    @Override
+    public String toString() {
+        return "Reservations{" +
+                "id=" + id +
+                ", isValidated='" + isValidated + '\'' +
+                ", startDate=" + startDate +
+                ", endDate=" + endDate +
+                ", user=" + user +
+                ", maison=" + maison +
+                '}';
     }
 }

@@ -1,6 +1,7 @@
 package isep.webtechno.placeholder.controllers;
 
 import isep.webtechno.placeholder.entities.*;
+import groovy.transform.Undefined;
 import isep.webtechno.placeholder.exceptions.UsersNotFoundException;
 import isep.webtechno.placeholder.repositories.*;
 import isep.webtechno.placeholder.security.UserProvider;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -80,27 +82,29 @@ public class BaseController {
         return "CGU";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/userlist")
     public String userlistMapping(Model model) {
+        List<User> userList = userRepository.findAll();
         model.addAttribute("metaTitle", "SwapHome - Liste des utilisateurs");
+        model.addAttribute("users", userList);
         return "userlist";
+    }
+
+    @GetMapping("/user/{id}")
+    public String userMapping(Model model, @PathVariable Long id) throws Exception {
+        User user = userRepository.findById(id).orElseThrow(() -> new Exception("Pas d'utilisateur avec l'id " + id));
+        model.addAttribute("user", user);
+        return "user";
     }
 
     @RequestMapping("/houselist")
     public ModelAndView maisonMapping () {
         ModelAndView modelAndView = new ModelAndView("house/list");
         modelAndView.addObject("houses", maisonsRepository.findAll());
-//        logger.info(maisonsRepository.findAll().get(0).toString());
         modelAndView.setViewName("houselist");
         return modelAndView;
     }
-
-//    @RequestMapping("/userlist")
-//    public ModelAndView userMapping () {
-//        ModelAndView modelAndView = new ModelAndView();
-//        modelAndView.setViewName("userlist");
-//        return modelAndView;
-//    }
 
     @GetMapping("/houseform")
     public String houseForm(Model model, Maisons maison) {
@@ -167,23 +171,30 @@ public class BaseController {
     }
 
     @GetMapping("/housereservation/{id}")
-    public String houseReservation(@PathVariable Long id, Model model, Reservations reservations){
-        Maisons maisons = maisonsRepository.getById(id);
+    public String houseReservation(@PathVariable String id, Model model, Reservations reservations) {
         model.addAttribute("reservations",reservations);
-        logger.info(maisons.toString());
-
+        model.addAttribute("routeId", id);
         return "housereservation";
     }
 
     @PostMapping("/housereservation/{id}")
-    public String houseReservationSubmit(@Valid @ModelAttribute("reservation") Reservations reservations, BindingResult bindingResult, Model model,RedirectAttributes atribute){
+    public String houseReservationSubmit(@Valid @ModelAttribute("reservations") Reservations reservations,
+                                         BindingResult bindingResult, Model model, RedirectAttributes attribute,
+                                         @PathVariable String id) {
         model.addAttribute("reservations",reservations);
-        if(bindingResult.hasErrors()) return "housereservation";
+        model.addAttribute("routeId", id);
+
+        logger.info(reservations.toString());
+
+        if(bindingResult.hasErrors()) {
+            return "housereservation";
+        }
+
         User user = getUserFromUserProvider(Objects.requireNonNull(getLoggedUserProvider()));
         reservations.setUser(user);
 
-        reservationsRepository.save(reservations);
-        atribute.addFlashAttribute("message","Reservation réussie !");
+//        reservationsRepository.save(reservations);
+        attribute.addFlashAttribute("message","Reservation réussie !");
         return "house";
     }
 }

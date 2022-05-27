@@ -13,6 +13,7 @@
         <p>DateDispoFin: <input type="date" th:field="*{endDate}" /></p>
         <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{endDate}">Erreur Titre</p>
 
+
         <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
 
         <p th:if="${#fields.hasAnyErrors()}">Any Error</p>

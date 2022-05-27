@@ -12,16 +12,20 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDate;
+
 @Configuration
 class LoadDatabase {
 
     private static final Logger log = LoggerFactory.getLogger(LoadDatabase.class);
 
+    User maxAdmin = new User("max", "dev", "max@gmail.com", "root", "ADMIN");
+
     @Bean
     CommandLineRunner initDatabase(UserRepository userRepository) {
 
         return args -> {
-            log.info("Preloading " + userRepository.save(new User("max", "dev", "max@gmail.com", "root", "ADMIN")));
+            log.info("Preloading " + userRepository.save(maxAdmin));
         };
     }
 
@@ -50,11 +54,11 @@ class LoadDatabase {
         };
     }
 
-//    @Bean
-//    CommandLineRunner initDatabase3(MaisonsRepository maisonsRepository) {
-//
-//        return args -> {
-//            log.info("Preloading " + maisonsRepository.save(new Maisons("Salle de bain", "Sèche-cheveux")));
-//        };
-//    }
+    @Bean
+    CommandLineRunner initDatabase3(MaisonsRepository maisonsRepository) {
+
+        return args -> {
+            log.info("Preloading " + maisonsRepository.save(new Maisons("Titre", "Description", "ListeServices", LocalDate.of(2020, 03, 02), LocalDate.of(2020, 03, 02), maxAdmin )));
+        };
+    }
 }
