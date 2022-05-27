@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/default">
+<body>
+<div id="page" layout:fragment="content">
+    <h1>Form</h1>
+<<<<<<< Updated upstream
+    <form action="#" th:action="@{'/housereservation/' + ${routeId}}" th:object="${reservations}" method="post">
+
+        <p>DateDispoDebut: <input type="date" th:field="*{startDate}" /></p>
+        <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}">Erreur Titre</p>
+        <p>DateDispoFin: <input type="date" th:field="*{endDate}" /></p>
+        <p th:if="${#fields.hasErrors('startDate')}" th:errors="*{endDate}">Erreur Titre</p>
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+        <p th:if="${#fields.hasAnyErrors()}">Any Error</p>
+=======
+    <form action="#" th:action="@{/housereservation.html}" th:object="${reservations}" enctype="multipart/form-data" method="post">
+
+        <p>DateDispoDebut: <input type="date" th:field="*{startDate}" /></p>
+        <p th:if="${#fields.hasErrors('dateDispoDebut')}" th:errors="*{startDate}">Erreur Titre</p>
+        <p>DateDispoFin: <input type="date" th:field="*{endDate}" /></p>
+        <p th:if="${#fields.hasErrors('dateDispoFin')}" th:errors="*{endDate}">Erreur Titre</p>
+
+
+        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
+        <!--        <p th:if="${#fields.hasAnyErrors()}">Any Error</p>-->
+>>>>>>> Stashed changes
+    </form>
+</div>
+</body>
+</html>
