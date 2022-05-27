@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="https://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/default">
 <body>
+<div id="page" layout:fragment="content">
     <h1>Form</h1>
     <form action="#" th:action="@{/houseform}" th:object="${maison}" enctype="multipart/form-data" method="post">
         <p>Titre: <input type="text" th:field="*{titre}" /></p>
@@ -33,5 +33,6 @@
 
 <!--        <p th:if="${#fields.hasAnyErrors()}">Any Error</p>-->
     </form>
+</div>
 </body>
 </html>
