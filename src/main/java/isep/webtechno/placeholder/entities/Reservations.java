@@ -1,5 +1,7 @@
 package isep.webtechno.placeholder.entities;
 
+import org.checkerframework.checker.units.qual.A;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -52,7 +54,7 @@ public class Reservations {
 
     private User user;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false,cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public User getUser() {
         return user;
     }
@@ -63,7 +65,7 @@ public class Reservations {
 
     private Maisons maison;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public Maisons getMaison() {
         return maison;
     }

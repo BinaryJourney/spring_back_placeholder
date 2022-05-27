@@ -1,14 +1,8 @@
 package isep.webtechno.placeholder.controllers;
 
-import isep.webtechno.placeholder.entities.Images;
-import isep.webtechno.placeholder.entities.Maisons;
-import isep.webtechno.placeholder.entities.Tags;
-import isep.webtechno.placeholder.entities.User;
+import isep.webtechno.placeholder.entities.*;
 import isep.webtechno.placeholder.exceptions.UsersNotFoundException;
-import isep.webtechno.placeholder.repositories.ImagesRepository;
-import isep.webtechno.placeholder.repositories.MaisonsRepository;
-import isep.webtechno.placeholder.repositories.TagsRepository;
-import isep.webtechno.placeholder.repositories.UserRepository;
+import isep.webtechno.placeholder.repositories.*;
 import isep.webtechno.placeholder.security.UserProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +11,7 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.server.authentication.RedirectServerAuthenticationEntryPoint;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +19,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
@@ -44,6 +40,9 @@ public class BaseController {
 
     @Autowired
     TagsRepository tagsRepository;
+
+    @Autowired
+    ReservationsRepository reservationsRepository;
 
     public static String uploadDirectory = System.getProperty("user.dir")+"/src/main/resources/static/images";
 
@@ -164,6 +163,27 @@ public class BaseController {
         Maisons maison = maisonsRepository.getById(id);
         model.addAttribute("maison", maison);
         logger.info(maison.toString());
+        return "house";
+    }
+
+    @GetMapping("/housereservation/{id}")
+    public String houseReservation(@PathVariable Long id, Model model, Reservations reservations){
+        Maisons maisons = maisonsRepository.getById(id);
+        model.addAttribute("reservations",reservations);
+        logger.info(maisons.toString());
+
+        return "housereservation";
+    }
+
+    @PostMapping("/housereservation/{id}")
+    public String houseReservationSubmit(@Valid @ModelAttribute("reservation") Reservations reservations, BindingResult bindingResult, Model model,RedirectAttributes atribute){
+        model.addAttribute("reservations",reservations);
+        if(bindingResult.hasErrors()) return "housereservation";
+        User user = getUserFromUserProvider(Objects.requireNonNull(getLoggedUserProvider()));
+        reservations.setUser(user);
+
+        reservationsRepository.save(reservations);
+        atribute.addFlashAttribute("message","Reservation réussie !");
         return "house";
     }
 }

@@ -95,7 +95,7 @@ public class User {
 
     private List<Reservations> reservations;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public List<Reservations> getReservations() {
         return reservations;
     }
