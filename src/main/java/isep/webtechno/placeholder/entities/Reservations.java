@@ -1,8 +1,10 @@
 package isep.webtechno.placeholder.entities;
 
 import org.checkerframework.checker.units.qual.A;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -33,6 +35,8 @@ public class Reservations {
     private LocalDate startDate;
 
     @Column(columnDefinition = "DATE",nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
     public LocalDate getStartDate() {
         return startDate;
     }
@@ -44,6 +48,8 @@ public class Reservations {
     private LocalDate endDate;
 
     @Column(columnDefinition = "DATE",nullable = false)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @NotNull
     public LocalDate getEndDate() {
         return endDate;
     }

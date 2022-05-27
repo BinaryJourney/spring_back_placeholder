@@ -163,15 +163,16 @@ public class BaseController {
     }
 
     @GetMapping("/house/{id}")
-    public String getHouse(@PathVariable Long id, Model model) {
-        Maisons maison = maisonsRepository.getById(id);
+    public String getHouse(@PathVariable Long id, Model model) throws Exception {
+        Maisons maison = maisonsRepository.findById(id).orElseThrow(() -> new Exception("No house with id " + id));
         model.addAttribute("maison", maison);
         logger.info(maison.toString());
         return "house";
     }
 
     @GetMapping("/housereservation/{id}")
-    public String houseReservation(@PathVariable String id, Model model, Reservations reservations) {
+    public String houseReservation(@PathVariable String id, Model model, Reservations reservations) throws Exception {
+        Maisons maison = maisonsRepository.findById(Long.valueOf(id)).orElseThrow(() -> new Exception("No house with id " + id));
         model.addAttribute("reservations",reservations);
         model.addAttribute("routeId", id);
         return "housereservation";
@@ -180,7 +181,7 @@ public class BaseController {
     @PostMapping("/housereservation/{id}")
     public String houseReservationSubmit(@Valid @ModelAttribute("reservations") Reservations reservations,
                                          BindingResult bindingResult, Model model, RedirectAttributes attribute,
-                                         @PathVariable String id) {
+                                         @PathVariable String id) throws Exception {
         model.addAttribute("reservations",reservations);
         model.addAttribute("routeId", id);
 
@@ -190,10 +191,13 @@ public class BaseController {
             return "housereservation";
         }
 
+        Maisons maison = maisonsRepository.findById(Long.valueOf(id)).orElseThrow(() -> new Exception("No house with id " + id));
         User user = getUserFromUserProvider(Objects.requireNonNull(getLoggedUserProvider()));
         reservations.setUser(user);
+        reservations.setMaison(maison);
 
-//        reservationsRepository.save(reservations);
+        reservationsRepository.save(reservations);
+        model.addAttribute("maison", maison);
         attribute.addFlashAttribute("message","Reservation réussie !");
         return "house";
     }
