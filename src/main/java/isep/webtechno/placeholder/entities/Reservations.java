@@ -29,7 +29,7 @@ public class Reservations {
     }
 
     public void setIsValidated(String isValidated) {
-        isValidated = isValidated;
+        this.isValidated = isValidated;
     }
 
     private LocalDate startDate;

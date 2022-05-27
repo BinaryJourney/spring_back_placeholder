@@ -23,6 +23,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -102,12 +104,38 @@ public class BaseController {
         User user = userRepository.findById(id).orElseThrow(() -> new Exception("Pas d'utilisateur avec l'id " + id));
         List<Maisons> maisonsList = maisonsRepository.findByUser(user);
         List<Reservations> reservationsList = reservationsRepository.findByUser(user);
-
         model.addAttribute("maisons", maisonsList);
         model.addAttribute("reservations", reservationsList);
         model.addAttribute("user", user);
-        logger.info(user.toString());
         return "user";
+    }
+
+    @GetMapping("/account")
+    public String accountGet(Model model) throws Exception {
+        User user = getUserFromUserProvider(Objects.requireNonNull(getLoggedUserProvider()));
+        List<Maisons> maisonsList = maisonsRepository.findByUser(user);
+        List<Reservations> reservationsList = reservationsRepository.findByUser(user);
+        model.addAttribute("maisons", maisonsList);
+        model.addAttribute("reservations", reservationsList);
+        model.addAttribute("user", user);
+        return "user";
+    }
+
+    @PostMapping("/account")
+    public void accountPost(HttpServletRequest request, HttpServletResponse response,
+                              @RequestParam Long id, @RequestParam boolean result) throws Exception {
+        Reservations reservation = reservationsRepository.findById(id).orElseThrow(() -> new Exception("No reservation with id " + id));
+        logger.info(String.valueOf(reservation.getIsValidated() == null));
+
+        if(reservation.getIsValidated() == null) {
+            if(result) {
+                reservation.setIsValidated("true");
+                reservationsRepository.save(reservation);
+            } else {
+                reservation.setIsValidated("false");
+                reservationsRepository.save(reservation);
+            }
+        }
     }
 
     @GetMapping("/houselist")
@@ -176,7 +204,6 @@ public class BaseController {
         for(Tags tag : maison.getTags()) {
 
         }
-        logger.info(maison.toString());
         model.addAttribute("uploadedFiles", imagesList);
 
         return "house";
@@ -186,7 +213,6 @@ public class BaseController {
     public String getHouse(@PathVariable Long id, Model model) throws Exception {
         Maisons maison = maisonsRepository.findById(id).orElseThrow(() -> new Exception("No house with id " + id));
         model.addAttribute("maison", maison);
-        logger.info(maison.toString());
         return "house";
     }
 
@@ -215,7 +241,6 @@ public class BaseController {
         reservations.setMaison(maison);
 
         reservationsRepository.save(reservations);
-        logger.info(reservations.toString());
         model.addAttribute("maison", maison);
         attribute.addFlashAttribute("message","Reservation réussie !");
         return "house";
