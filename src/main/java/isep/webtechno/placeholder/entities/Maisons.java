@@ -110,13 +110,20 @@ public class Maisons {
 
     private Set<Tags> tags;
 
-    @ManyToMany(mappedBy = "maison")
+    @ManyToMany
     public Set<Tags> getTags() {
         return tags;
     }
 
     public void setTags(Set<Tags> tags) {
         this.tags = tags;
+    }
+
+    public void addTags(Tags tag){
+        //As said Hibernate will ignore it when persist this relationship.
+        //Add it mainly for the consistency of this relationship for both side in the Java instance
+        this.tags.add(tag);
+//        image.setMaison(this);
     }
 
     private List<Images> images = new ArrayList<>();
@@ -162,16 +169,15 @@ public class Maisons {
                 '}';
     }
 
+    private List<Reservations> reservations;
 
-//    private List<Reservations> reservations;
-//
-//    @OneToMany
-//    public List<Reservations> getReservations() {
-//        return reservations;
-//    }
-//
-//    public void setReservations(List<Reservations> reservations) {
-//        this.reservations = reservations;
-//    }
+    @OneToMany(mappedBy = "maison", cascade = CascadeType.ALL)
+    public List<Reservations> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservations> reservations) {
+        this.reservations = reservations;
+    }
 
 }

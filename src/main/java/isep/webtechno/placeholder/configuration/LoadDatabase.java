@@ -1,5 +1,6 @@
 package isep.webtechno.placeholder.configuration;
 
+import isep.webtechno.placeholder.entities.Maisons;
 import isep.webtechno.placeholder.entities.Tags;
 import isep.webtechno.placeholder.entities.User;
 import isep.webtechno.placeholder.repositories.MaisonsRepository;
@@ -48,4 +49,12 @@ class LoadDatabase {
 
         };
     }
+
+//    @Bean
+//    CommandLineRunner initDatabase3(MaisonsRepository maisonsRepository) {
+//
+//        return args -> {
+//            log.info("Preloading " + maisonsRepository.save(new Maisons("Salle de bain", "Sèche-cheveux")));
+//        };
+//    }
 }

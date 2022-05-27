@@ -126,7 +126,7 @@ public class BaseController {
         List<List<Tags>> typeTagsList = new ArrayList<>();
         typeTagsList.add(tagsRepository.findAllByType("Salle de bain"));
         typeTagsList.add(tagsRepository.findAllByType("Chambre et linge"));
-        typeTagsList.add( tagsRepository.findAllByType("Divertissement"));
+        typeTagsList.add(tagsRepository.findAllByType("Divertissement"));
         typeTagsList.add(tagsRepository.findAllByType("Famille"));
         typeTagsList.add(tagsRepository.findAllByType("Chauffage et climatisation"));
         model.addAttribute("tagTypesList", typeTagsList);
@@ -139,7 +139,7 @@ public class BaseController {
         maison.setUser(user);
 
         /** Rentre la maison en base **/
-        maison = maisonsRepository.save(maison);
+        maisonsRepository.save(maison);
 
         StringBuilder fileNames = new StringBuilder();
         List<Images> imagesList = new ArrayList<>();
@@ -159,4 +159,11 @@ public class BaseController {
         return "house";
     }
 
+    @GetMapping("/house/{id}")
+    public String getHouse(@PathVariable Long id, Model model) {
+        Maisons maison = maisonsRepository.getById(id);
+        model.addAttribute("maison", maison);
+        logger.info(maison.toString());
+        return "house";
+    }
 }

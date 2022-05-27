@@ -64,12 +64,7 @@ public class Tags {
 
     private Set<Maisons> maison;
 
-    @ManyToMany
-    @JoinTable(
-            name = "tags_maison",
-            joinColumns = @JoinColumn(name = "tags_id"),
-            inverseJoinColumns = @JoinColumn(name = "maison_id")
-    )
+    @ManyToMany(mappedBy = "tags")
     public Set<Maisons> getMaison() {
         return maison;
     }
