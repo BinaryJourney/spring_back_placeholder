@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+
+<body>
+    <div th:if="${msg}">
+        <span th:text="${msg}"></span>
+    </div>
+
+    <div class="container" th:each="uploadedFile : ${uploadedFiles}">
+        <div class="row">
+            <img th:src="${uploadedFile.photosImagePath}" />
+        </div>
+    </div>
+
+    <div>
+        <span><a href="/uploadImage">Upload more</a></span>
+    </div>
+</body>
+</html>

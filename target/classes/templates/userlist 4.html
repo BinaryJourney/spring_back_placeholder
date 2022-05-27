@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/default">
+<body>
+<div id="page" layout:fragment="content">
+    <div class="container mt-5" th:each="user : ${users}">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-7">
+                <div class="card p-3 py-4">
+                    <div class="text-center mt-3">
+                        <span class="bg-secondary p-1 px-4 rounded text-white" th:with="roleLC=${#strings.toLowerCase(user.role)}" th:text="${#strings.capitalize(roleLC)}"> </span>
+                        <h5 class="my-2" th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></h5>
+                        <div class="buttons">
+                            <button class="btn btn-outline-primary px-4" disabled>Message</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
