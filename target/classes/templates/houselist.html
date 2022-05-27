@@ -5,6 +5,10 @@
       layout:decorate="/layouts/default">
 <body>
 <div id="page" layout:fragment="content">
+    <form th:action="@{/houselist}" method="get">
+        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search">
+        <button type="submit" class="btn btn-info" >Search</button>
+    </form>
     <h6>Liste des maisons</h6>
     <div th:each="house : ${houses}">
         <div class="list-group">
@@ -34,7 +38,7 @@
                                     <br>
                                 </div>
                                 <div>
-                                    <img th:src="${house.images.get(0).getPhotosImagePath()}" width="200" class="ml-lg-5 order-1 order-lg-2" alt="Photos montrant la maison">
+                                    <img th:if="${house.images.size()} != 0" th:src="${house.images.get(0).getPhotosImagePath()}" width="200" class="ml-lg-5 order-1 order-lg-2" alt="Photos montrant la maison">
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mt-1">
                                     <br>

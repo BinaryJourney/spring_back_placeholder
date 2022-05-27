@@ -67,8 +67,14 @@ public class BaseController {
                 -> new UsersNotFoundException(userProvider.getId()));
     }
 
-
     Logger logger = LoggerFactory.getLogger(BaseController.class);
+
+    @GetMapping("/test")
+    public String test() throws Exception {
+        Maisons maison = maisonsRepository.findById(1L).orElseThrow(() -> new Exception(""));
+        logger.info(String.valueOf(maison.getImages().size()));
+        return "home";
+    }
 
     @GetMapping("/home")
     public String homePageMapping(Model model) {
@@ -104,12 +110,16 @@ public class BaseController {
         return "user";
     }
 
-    @RequestMapping("/houselist")
-    public ModelAndView maisonMapping () {
-        ModelAndView modelAndView = new ModelAndView("house/list");
-        modelAndView.addObject("houses", maisonsRepository.findAll());
-        modelAndView.setViewName("houselist");
-        return modelAndView;
+    @GetMapping("/houselist")
+    public String maisonMapping (Model model, Maisons maisons, String keyword) {
+        if(keyword != null) {
+            List<Maisons> maisonsList = maisonsRepository.findByKeyword(keyword);
+            model.addAttribute("houses", maisonsList);
+        } else {
+            List<Maisons> maisonsList = maisonsRepository.findAll();
+            model.addAttribute("houses", maisonsList);
+        }
+        return "houselist";
     }
 
     @GetMapping("/houseform")
