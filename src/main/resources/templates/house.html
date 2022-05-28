@@ -58,10 +58,11 @@
                                         <img th:src="${image.getPhotosImagePath()}" />
                                     </div>
                                 </div>
-                          
+
                                 <div class="my-3 text-center">
+                                    <a class="btn btn-primary" th:href="@{${'/housereservation/' + maison.id}}" role="button">Réserver ce logement</a>
+                                    <a class="btn btn-primary" th:href="@{${'/user/' + maison.user}}" role="button">Profil de l'annonceur</a>
                                     <a class="btn btn-primary" th:href="@{/houseform}" role="button">Poster une nouvelle annonce</a>
-                                    <a class="btn btn-primary" th:href="@{/housereservation}" role="button">Réserver ce logement</a>
                                 </div>
                             </div>
                         </div>

@@ -58,24 +58,11 @@
                                         <img th:src="${image.getPhotosImagePath()}" />
                                     </div>
                                 </div>
-<!--                                <p th:text="'titre: ' + ${maison.titre}" />-->
-<!--                                <p th:text="'description: ' + ${maison.description}" />-->
-<!--                                <p th:text="'liste_services: ' + ${maison.listeServices}" />-->
-<!--                                <p th:text="'date_dispo_debut: ' + ${maison.dateDispoDebut}" />-->
-<!--                                <p th:text="'date_dispo_fin: ' + ${maison.dateDispoFin}" />-->
-<!--                                <div class="row">Tags :</div>-->
-<!--                                <div class="container" th:each="tag : ${maison.tags}">-->
-<!--                                    <div class="row" th:text="${tag.libelle}"/>-->
-<!--                                </div>-->
 
-<!--                                <div class="container" th:each="image : ${maison.images}">-->
-<!--                                    <div class="row">-->
-<!--                                        <img th:src="${image.getPhotosImagePath()}" />-->
-<!--                                    </div>-->
-<!--                                </div>-->
                                 <div class="my-3 text-center">
+                                    <a class="btn btn-primary" th:href="@{${'/housereservation/' + maison.id}}" role="button">Réserver ce logement</a>
+                                    <a class="btn btn-primary" th:href="@{${'/user/' + maison.user}}" role="button">Profil de l'annonceur</a>
                                     <a class="btn btn-primary" th:href="@{/houseform}" role="button">Poster une nouvelle annonce</a>
-                                    <a class="btn btn-primary" th:href="@{/housereservation}" role="button">Réserver ce logement</a>
                                 </div>
                             </div>
                         </div>
