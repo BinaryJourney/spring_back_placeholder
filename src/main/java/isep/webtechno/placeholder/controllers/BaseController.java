@@ -125,7 +125,7 @@ public class BaseController {
     public void accountPost(HttpServletRequest request, HttpServletResponse response,
                               @RequestParam Long id, @RequestParam boolean result) throws Exception {
         Reservations reservation = reservationsRepository.findById(id).orElseThrow(() -> new Exception("No reservation with id " + id));
-        logger.info(String.valueOf(reservation.getIsValidated() == null));
+//        logger.info(String.valueOf(reservation.getIsValidated() == null));
 
         if(reservation.getIsValidated() == null) {
             if(result) {
@@ -185,7 +185,10 @@ public class BaseController {
         User user = getUserFromUserProvider(Objects.requireNonNull(getLoggedUserProvider()));
         maison.setUser(user);
 
-        /** Rentre la maison en base **/
+        if(maison.getTags().contains(null)) {
+            maison.setTags(new HashSet<>());
+        }
+        
         maisonsRepository.save(maison);
 
         StringBuilder fileNames = new StringBuilder();
@@ -200,9 +203,6 @@ public class BaseController {
             temp_image = new Images(randomUUID + file.getOriginalFilename(), maison);
             imagesList.add(imagesRepository.save(temp_image));
             maison.addImages(temp_image);
-        }
-        for(Tags tag : maison.getTags()) {
-
         }
         model.addAttribute("uploadedFiles", imagesList);
 
