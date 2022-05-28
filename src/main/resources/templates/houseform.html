@@ -5,34 +5,76 @@
       layout:decorate="/layouts/default">
 <body>
 <div id="page" layout:fragment="content">
-    <h1>Form</h1>
-    <form action="#" th:action="@{/houseform}" th:object="${maison}" enctype="multipart/form-data" method="post">
-        <p>Titre: <input type="text" th:field="*{titre}" /></p>
-        <p th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}">Erreur titre</p>
-        <p>Description: <input type="text" th:field="*{description}" /></p>
-        <p th:if="${#fields.hasErrors('description')}" th:errors="*{description}">Erreur description</p>
-        <p>ListeServices: <input type="text" th:field="*{listeServices}" /></p>
-        <p th:if="${#fields.hasErrors('listeServices')}" th:errors="*{listeServices}">Erreur liste de services</p>
-        <p>DateDispoDebut: <input type="date" th:field="*{dateDispoDebut}" /></p>
-        <p th:if="${#fields.hasErrors('dateDispoDebut')}" th:errors="*{dateDispoDebut}">Erreur date de début</p>
-        <p>DateDispoFin: <input type="date" th:field="*{dateDispoFin}" /></p>
-        <p th:if="${#fields.hasErrors('dateDispoFin')}" th:errors="*{dateDispoFin}">Erreur date de fin</p>
+    <h1>Ajouter un logement</h1>
+    <div class="list-group ">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- List group-->
+                <ul class="list-group shadow mt-2">
+                    <!-- list group item-->
+                    <li class="list-group-item">
+                        <!-- Custom content-->
+                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                            <div class="media-body order-2 order-lg-1">
+                                <form action="#" th:action="@{/houseform}" th:object="${maison}" enctype="multipart/form-data" method="post">
+                                    <div class="mb-3">
+                                        <label for="titre" class="form-label">Titre de l'annonce</label>
+                                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('titre')}" th:errors="*{titre}"></div>
+                                        <input type="text" class="form-control" id="titre" aria-describedby="titleHelp" th:field="*{titre}">
+                                        <div id="titleHelp" class="form-text" >Donnez un titre aguicheur à votre annonce</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="description" class="form-label">Description</label>
+                                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+                                        <input type="text" class="form-control" id="description" aria-describedby="descriptionHelp" th:field="*{description}">
+                                        <div id="descriptionHelp" class="form-text" >Faites une description complète de votre logement</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="listeservice" class="form-label">Liste des services demandés</label>
+                                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('listeServices')}" th:errors="*{listeServices}"></div>
+                                        <input type="text" class="form-control" id="listeservice" aria-describedby="serviceHelp" th:field="*{listeServices}">
+                                        <div id="serviceHelp" class="form-text" >Renseignez une liste exhaustive et détaillée des services demandés</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="datedebut" class="form-label">Date de début de disponibilité</label>
+                                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('dateDispoDebut')}" th:errors="*{dateDispoDebut}"></div>
+                                        <input type="date" class="form-control" id="datedebut" th:field="*{dateDispoDebut}">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="datefin" class="form-label">Date de fin de disponibilité</label>
+                                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('dateDispoFin')}" th:errors="*{dateDispoFin}"></div>
+                                        <input type="date" class="form-control" id="datefin" th:field="*{dateDispoFin}">
+                                    </div>
 
-        <th:block th:each="tagTypes, iStat : ${tagTypesList}">
-            <div th:text="${tagTypes.get(0).type}"></div>
-            <select type="date" th:field="*{tags}" multiple>
-                <option value="">Choose..</option>
-                <option th:each="tag: ${tagTypes}" th:value="${tag.id}" th:text="${tag.libelle}" />
-            </select>
-        </th:block>
-        <p th:if="${#fields.hasErrors('tags')}" th:errors="*{tags}">Erreur tags</p>
+                                    <th:block th:each="tagTypes, iStat : ${tagTypesList}">
+                                        <div class="mb-3">
+                                            <label for="tagselector" class="form-label" th:text="${tagTypes.get(0).type}"></label>
+                                            <select class="form-select" type="date" id="tagselector" th:field="*{tags}" multiple>
+                                                <option value="">Choisissez un ou plusieurs éléments...</option>
+                                                <option th:each="tag: ${tagTypes}" th:value="${tag.id}" th:text="${tag.libelle}" />
+                                            </select>
+                                        </div>
+                                    </th:block>
+                                    <p th:if="${#fields.hasErrors('tags')}" th:errors="*{tags}">Erreur tags</p>
 
-        <p>Upload one or multiple files : <input type="file" name="files" multiple /></p>
+                                    <div class="mb-3">
+                                        <label for="formFile" class="form-label">Choisissez une ou plusieurs photos</label>
+                                        <input class="form-control" type="file" id="formFile" name="files" multiple>
+                                    </div>
 
-        <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-
-<!--        <p th:if="${#fields.hasAnyErrors()}">Any Error</p>-->
-    </form>
+                                    <div class="mb-3">
+                                        <button type="submit" class="btn btn-primary" value="Submit">Poster mon annonce</button>
+                                        <button type="reset" class="btn btn-primary" value="Reset">Réinitialiser le formulaire</button>
+                                    </div>
+                            <!--        <p th:if="${#fields.hasAnyErrors()}">Any Error</p>-->
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

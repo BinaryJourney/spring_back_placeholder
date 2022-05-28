@@ -5,19 +5,18 @@
       layout:decorate="/layouts/default">
 <body>
 <div id="page" layout:fragment="content">
-<<<<<<< Updated upstream
     <link rel="stylesheet" href="/css/fragments/houselist.css">
     <form th:action="@{/houselist}" method="get">
         <input type="text" name="keyword" th:value="${keyword}" placeholder="Search">
         <button type="submit" class="btn btn-info" >Search</button>
     </form>
-    <h6>Liste des maisons</h6>
+    <h1>Liste des logements</h1>
     <div th:each="house : ${houses}">
         <div class="list-group">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <!-- List group-->
-                    <ul class="list-group shadow">
+                    <ul class="list-group shadow mt-2">
                         <!-- list group item-->
                         <li class="list-group-item">
                             <!-- Custom content-->
