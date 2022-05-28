@@ -6,11 +6,13 @@
 <body>
 <div id="page" layout:fragment="content">
 <<<<<<< Updated upstream
-    <link rel="stylesheet" href="/css/fragments/houselist.css">
     <form th:action="@{/houselist}" method="get">
         <input type="text" name="keyword" th:value="${keyword}" placeholder="Search">
         <button type="submit" class="btn btn-info" >Search</button>
     </form>
+=======
+    <link rel="stylesheet" href="/css/fragments/houselist.css">
+>>>>>>> Stashed changes
     <h6>Liste des maisons</h6>
     <div th:each="house : ${houses}">
         <div class="list-group">
@@ -41,9 +43,11 @@
                                 </div>
 <!--                                <div>-->
 <!--                                    <img th:src="${house.images.get(0).getPhotosImagePath()}" width="200" class="ml-lg-5 order-1 order-lg-2" alt="Photos montrant la maison">-->
-<!--                                    <img th:if="${house.images.size()} != 0" th:src="${house.images.get(0).getPhotosImagePath()}" width="200" class="ml-lg-5 order-1 order-lg-2" alt="Photos montrant la maison">-->
 <!--                                </div>-->
                                 <div>
+<<<<<<< Updated upstream
+                                    <img th:if="${house.images.size()} != 0" th:src="${house.images.get(0).getPhotosImagePath()}" width="200" class="ml-lg-5 order-1 order-lg-2" alt="Photos montrant la maison">
+=======
                                     <div id="small-img" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
                                         <table>
                                             <tr>
@@ -53,6 +57,7 @@
                                             </tr>
                                         </table>
                                     </div>
+>>>>>>> Stashed changes
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mt-1">
                                     <br>

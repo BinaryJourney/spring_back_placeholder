@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/default">
+<body>
+<div id="page" layout:fragment="content">
+    
+    <h1>Description de l'offre</h1>
+    <p th:text="'titre: ' + ${maison.titre}" />
+    <p th:text="'description: ' + ${maison.description}" />
+    <p th:text="'liste_services: ' + ${maison.listeServices}" />
+    <p th:text="'date_dispo_debut: ' + ${maison.dateDispoDebut}" />
+    <p th:text="'date_dispo_fin: ' + ${maison.dateDispoFin}" />
+    <div class="row">Tags :</div>
+    <div class="container" th:each="tag : ${maison.tags}">
+        <div class="row" th:text="${tag.libelle}"/>
+    </div>
+
+    <div class="container" th:each="image : ${maison.images}">
+        <div class="row">
+            <img th:src="${image.getPhotosImagePath()}" />
+        </div>
+    </div>
+    <a href="/houseform">Submit another message  </a>
+    <a href="/housereservation">Set a reservation  </a>
+</div>
+</body>
+</html>

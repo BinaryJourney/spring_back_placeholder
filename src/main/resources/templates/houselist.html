@@ -5,6 +5,7 @@
       layout:decorate="/layouts/default">
 <body>
 <div id="page" layout:fragment="content">
+    <link rel="stylesheet" href="/css/fragments/houselist.css">
     <form th:action="@{/houselist}" method="get">
         <input type="text" name="keyword" th:value="${keyword}" placeholder="Search">
         <button type="submit" class="btn btn-info" >Search</button>
@@ -37,8 +38,20 @@
                                     <p class="font-italic my-0 small">Du <i th:text="${house.dateDispoDebut}"></i> au <i th:text="${house.dateDispoFin}"></i></p>
                                     <br>
                                 </div>
+<!--                                <div>-->
+<!--                                    <img th:src="${house.images.get(0).getPhotosImagePath()}" width="200" class="ml-lg-5 order-1 order-lg-2" alt="Photos montrant la maison">-->
+<!--                                    <img th:if="${house.images.size()} != 0" th:src="${house.images.get(0).getPhotosImagePath()}" width="200" class="ml-lg-5 order-1 order-lg-2" alt="Photos montrant la maison">-->
+<!--                                </div>-->
                                 <div>
-                                    <img th:if="${house.images.size()} != 0" th:src="${house.images.get(0).getPhotosImagePath()}" width="200" class="ml-lg-5 order-1 order-lg-2" alt="Photos montrant la maison">
+                                    <div id="small-img" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
+                                        <table>
+                                            <tr>
+                                                <td th:each="image : ${house.images}">
+                                                    <img th:src="${image.getPhotosImagePath()}" class="p-1"/>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                                 <div class="d-flex align-items-center justify-content-between mt-1">
                                     <br>
