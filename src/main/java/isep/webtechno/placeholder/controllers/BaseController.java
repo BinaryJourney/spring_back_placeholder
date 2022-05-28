@@ -80,13 +80,13 @@ public class BaseController {
 
     @GetMapping("/home")
     public String homePageMapping(Model model) {
-        model.addAttribute("metaTitle", "SwapHome - Acceuil");
+        model.addAttribute("metaTitle", "Acceuil | SwapHome");
         return "home";
     }
 
     @GetMapping("/CGU")
     public String CGUMapping(Model model) {
-        model.addAttribute("metaTitle", "SwapHome - CGU");
+        model.addAttribute("metaTitle", "CGU | SwapHome");
         return "CGU";
     }
 
@@ -94,7 +94,7 @@ public class BaseController {
     @GetMapping("/userlist")
     public String userlistMapping(Model model) {
         List<User> userList = userRepository.findAll();
-        model.addAttribute("metaTitle", "SwapHome - Liste des utilisateurs");
+        model.addAttribute("metaTitle", "Liste des utilisateurs | SwapHome");
         model.addAttribute("users", userList);
         return "userlist";
     }
@@ -104,6 +104,7 @@ public class BaseController {
         User user = userRepository.findById(id).orElseThrow(() -> new Exception("Pas d'utilisateur avec l'id " + id));
         List<Maisons> maisonsList = maisonsRepository.findByUser(user);
         List<Reservations> reservationsList = reservationsRepository.findByUser(user);
+        model.addAttribute("metaTitle", "Utilisateur #" + id + " | SwapHome");
         model.addAttribute("maisons", maisonsList);
         model.addAttribute("reservations", reservationsList);
         model.addAttribute("user", user);
@@ -145,6 +146,7 @@ public class BaseController {
             model.addAttribute("houses", maisonsList);
         } else {
             List<Maisons> maisonsList = maisonsRepository.findAll();
+            model.addAttribute("metaTitle", "Liste des logements | SwapHome");
             model.addAttribute("houses", maisonsList);
         }
         return "houselist";
@@ -160,6 +162,7 @@ public class BaseController {
         typeTagsList.add(tagsRepository.findAllByType("Divertissement"));
         typeTagsList.add(tagsRepository.findAllByType("Famille"));
         typeTagsList.add(tagsRepository.findAllByType("Chauffage et climatisation"));
+        model.addAttribute("metaTitle", "Nouveau logement | SwapHome");
         model.addAttribute("tagTypesList", typeTagsList);
 
         return "houseform";
@@ -212,6 +215,7 @@ public class BaseController {
     @GetMapping("/house/{id}")
     public String getHouse(@PathVariable Long id, Model model) throws Exception {
         Maisons maison = maisonsRepository.findById(id).orElseThrow(() -> new Exception("No house with id " + id));
+        model.addAttribute("metaTitle", "Logement #" + id + " | SwapHome");
         model.addAttribute("maison", maison);
         return "house";
     }
@@ -219,6 +223,7 @@ public class BaseController {
     @GetMapping("/housereservation/{id}")
     public String houseReservation(@PathVariable String id, Model model, Reservations reservations) throws Exception {
         Maisons maison = maisonsRepository.findById(Long.valueOf(id)).orElseThrow(() -> new Exception("No house with id " + id));
+        model.addAttribute("metaTitle", "Réservation logement #" + id + " | SwapHome");
         model.addAttribute("reservations",reservations);
         model.addAttribute("routeId", id);
         return "housereservation";
