@@ -12,14 +12,58 @@
                     <div class="text-center mt-3">
                         <span class="bg-secondary p-1 px-4 rounded text-white" th:with="roleLC=${#strings.toLowerCase(user.role)}" th:text="${#strings.capitalize(roleLC)}"> </span>
                         <h5 class="my-2" th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></h5>
-                        <div class="buttons">
-                            <button class="btn btn-outline-primary px-4" disabled>Message</button>
-                        </div>
+                        <p th:text="${user.email}"></p>
+                        <p th:text="${user.password}"></p>
+                        <p th:text="${user.maisons}"></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/userlist.css">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-uppercase mb-0">Manage Users</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table no-wrap user-table mb-0">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="border-0 text-uppercase font-medium pl-4">#</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">Name</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">Email</th>
+                                <th scope="col" class="border-0 text-uppercase font-medium">Role</th>
+<!--                                <th scope="col" class="border-0 text-uppercase font-medium">Logement</th>-->
+<!--                                <th scope="col" class="border-0 text-uppercase font-medium">Réservation</th>-->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="user : ${users}">
+                                <td class="pl-4" th:text="${user.id}"></td>
+                                <td th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></td>
+                                <td class="text-muted" th:text="${user.email}"><br></td>
+                                <td th:with="roleLC=${#strings.toLowerCase(user.role)}" th:text="${#strings.capitalize(roleLC)}"></td>
+<!--                                <td>-->
+<!--                                    <p th:text="${user.maisons}"></p>-->
+<!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <p th:text="${user.reservations}"></p>-->
+<!--                                </td>-->
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 </body>
 </html>
