@@ -12,14 +12,14 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" th:href="@{/houseform}">Ajouter un logement</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" th:href="@{/userlist}">Liste des utilisateurs</a>
+                <li class="nav-item ml-auto">
+                    <a class="nav-link active" aria-current="page" th:href="@{/account}">Mon Compte</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" th:href="@{/login}">Se connecter</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active">S'enregistrer</a>
+                    <form th:action="@{/logout}" method="post">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                        <button type="submit" class="nav-link active" style="background-color: white; border: none; outline: none;">Deconnection</button>
+                    </form>
                 </li>
             </ul>
         </div>

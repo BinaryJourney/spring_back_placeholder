@@ -38,15 +38,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("usernameInput")
                 .and()
                 .rememberMe()
-                .rememberMeParameter("rememberMeInput")
-                .userDetailsService(userService)
+                    .rememberMeParameter("rememberMeInput")
+                    .userDetailsService(userService)
                 .and()
                 .logout()
                 .logoutUrl("/logout")
                 .clearAuthentication(true)
                 .invalidateHttpSession(true)
-                .logoutSuccessUrl("/login")
-                .permitAll();
+                .logoutSuccessUrl("/login");
     }
 
 //    @Bean
