@@ -1,37 +1,53 @@
 <!DOCTYPE html>
-<html class="h-100" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+<html lang="fr" class="h-100" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
-  <title>Spring Security Example </title>
+  <title>Connexion | SwapHome</title>
   <link rel="stylesheet" href="/css/bootstrap.min.css">
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
 </head>
 <body class="h-100">
-<div th:if="${param.error}">
-  Invalid username and password.
-</div>
-<div th:if="${param.logout}">
-  You have been logged out.
+
+<div class="list-group">
+  <div class="row">
+    <div class="col-lg-8 mx-auto">
+      <!-- List group-->
+      <ul class="list-group shadow mt-2">
+        <!-- list group item-->
+        <li class="list-group-item">
+          <!-- Custom content-->
+          <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+            <div class="media-body order-2 order-lg-1">
+              <div class="card-body">
+                <h5 class="card-title text-center text-uppercase">Connexion</h5>
+                <form class="m-auto p-3" th:action="@{/login}" method="post">
+                  <div class="mb-3">
+                    <div class="alert alert-danger" role="alert" th:if="${param.error}">Adresse email et/ou mot de passe invalide</div>
+                    <div class="alert alert-danger" role="alert" th:if="${param.logout}">Vous avez été déconnecté</div>
+                    <label for="usernameInput" class="form-label">Adresse email</label>
+                    <input class="form-control" type="text" name="usernameInput" id="usernameInput">
+                  </div>
+                  <div class="mb-3">
+                    <label for="passwordInput" class="form-label">Mot de passe</label>
+                    <input class="form-control" type="password" name="passwordInput" id="passwordInput">
+                  </div>
+                  <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="rememberMeInput" name="rememberMeInput">
+                    <label class="form-check-label" for="rememberMeInput">Se rappeler de moi</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary">Se connecter</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
 
-<div class="w-100 h-100 d-flex">
-  <form class="m-auto p-3" th:action="@{/login}" method="post">
-    <div class="mb-3">
-      <label for="usernameInput" class="form-label"> User Name :</label>
-      <input class="form-control" type="text" name="usernameInput" id="usernameInput">
-    </div>
-    <div class="mb-3">
-      <label for="passwordInput" class="form-label"> Password:</label>
-      <input class="form-control" type="password" name="passwordInput" id="passwordInput">
-    </div>
-    <div class="mb-3 form-check">
-      <input type="checkbox" class="form-check-input" id="rememberMeInput" name="rememberMeInput">
-      <label class="form-check-label" for="rememberMeInput">Remember Me</label>
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
-</div>
+
 
 </body>
 </html>

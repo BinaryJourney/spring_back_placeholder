@@ -5,57 +5,136 @@
       layout:decorate="/layouts/default">
 <body>
 <div id="page" layout:fragment="content">
-    <div class="container">
-        <div class="container mt-5">
-            <div class="row d-flex justify-content-center">
-                <div class="col-md-7">
-                    <div class="card p-3 py-4">
-                        <div class="text-center mt-3">
-                            <span class="bg-secondary p-1 px-4 rounded text-white" th:with="roleLC=${#strings.toLowerCase(user.role)}" th:text="${#strings.capitalize(roleLC)}"> </span>
-                            <h5 class="my-2" th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></h5>
-                            <div class="buttons">
-                                <button class="btn btn-outline-primary px-4" disabled>Message</button>
+    <div class="list-group">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- List group-->
+                <ul class="list-group shadow mt-2">
+                    <!-- list group item-->
+                    <li class="list-group-item">
+                        <!-- Custom content-->
+                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                            <div class="media-body order-2 order-lg-1">
+                                <div class="card-body">
+                                    <h5 class="card-title text-uppercase">Profil utilisateur</h5>
+                                    <h5 class="card-title mt-5 mb-2" th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></h5>
+                                    <div class="buttons text-center">
+                                        <button class="btn btn-outline-primary px-4" disabled>Message</button>
+                                    </div>
+                                    <div class="table-responsive mt-4">
+                                        <h5 class="card-title my-4 text-center">Vos réservations</h5>
+                                        <table class="table no-wrap user-table mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col" class="border-0 text-uppercase font-medium pl-4">N° de réservation</th>
+                                                <th scope="col" class="border-0 text-uppercase font-medium">Début</th>
+                                                <th scope="col" class="border-0 text-uppercase font-medium">Fin</th>
+                                                <th scope="col" class="border-0 text-uppercase font-medium">Statut</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="reservation, i : ${reservations}">
+                                                <td th:text="${i.index}"></td>
+                                                <td th:text="${reservation.startDate}"></td>
+                                                <td th:text="${reservation.endDate}"></td>
+                                                <td>
+                                                    <th:block th:switch="${reservation.isValidated}">
+                                                        <div class="col" th:case="'true'">Validé</div>
+                                                        <div class="col" th:case="'false'">Refusé</div>
+                                                        <div class="col" th:case="null">En attente</div>
+                                                    </th:block>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="table-responsive mt-4">
+                                        <h5 class="card-title my-4 text-center">Vos annonces en ligne</h5>
+                                        <table class="table no-wrap user-table mb-0">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col" class="border-0 text-uppercase font-medium pl-4">N° de logement</th>
+                                                <th scope="col" class="border-0 text-uppercase font-medium">Titre</th>
+                                                <th scope="col" class="border-0 text-uppercase font-medium">Lien</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody class="my-2" th:each="maison, j : ${maisons}">
+                                            <tr>
+                                                <td th:text="${j.index}"></td>
+                                                <td th:text="${maison.titre}"></td>
+                                                <td><a class="btn btn-info" th:href="@{${'/house/' + maison.id}}" role="button">Détails de l'annonce</a></td>
+                                            </tr>
+                                            <tr th:each="reservation2, k : ${reservations}" th:if="${maison.id} == ${reservation2.maison.id}">
+                                                <td th:id="'reservation_' + ${reservation2.id}" th:text="'Réservation #' + ${k.index}"></td>
+                                                <td th:text="'Débute le ' + ${reservation2.startDate}"></td>
+                                                <td th:text="'Termine le ' + ${reservation2.endDate}"></td>
+                                                <td th:text="'Demandeur : ' + |${reservation2.user.prenom} ${reservation2.user.nom}|"></td>
+                                                <td><button th:id="'reservationAccept_' + ${reservation2.id}" class="btn btn-primary account-accept">Accepter</button></td>
+                                                <td><button th:id="'reservationAccept_' + ${reservation2.id}" class="btn btn-danger account-refuse">Refuser</button></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container my-3">
-            <div class="row" th:each="reservation, i : ${reservations}">
-                <div class="col" th:text="'Reservation #' + ${i.index}"></div>
-                <div class="col" th:text="'Debut ' + ${reservation.startDate}"></div>
-                <div class="col" th:text="'Fin ' + ${reservation.endDate}"></div>
-                <th:block th:switch="${reservation.isValidated}">
-                    <div class="col" th:case="'true'">
-                        Statut : Validé
-                    </div>
-                    <div class="col" th:case="'false'">
-                        Statut : Refusé
-                    </div>
-                    <div class="col" th:case="null">
-                        Statut : En attente
-                    </div>
-                </th:block>
-            </div>
-        </div>
-        <div class="container my-3">
-            <div class="row" th:each="maison, j : ${maisons}">
-                <div class="col" th:text="'Maison #' + ${j.index}"></div>
-                <div class="col" th:text="'Titre ' + ${maison.titre}"></div>
-                <a class="col" th:href="'/house/' + ${maison.id}">Lien</a>
-                <div class="row" th:each="reservation2, k : ${reservations}"
-                     th:if="${maison.id} == ${reservation2.maison.id}">
-                    <div class="col" th:id="'reservation_' + ${reservation2.id}" th:text="'Reservation #' + ${k.index}"></div>
-                    <div class="col" th:text="'Debut ' + ${reservation2.startDate}"></div>
-                    <div class="col" th:text="'Fin ' + ${reservation2.endDate}"></div>
-                    <div class="col" th:text="'Demandeur ' + |${reservation2.user.nom} ${reservation2.user.prenom}|"></div>
-                    <button th:id="'reservationAccept_' + ${reservation2.id}" class="btn btn-primary account-accept">Accepter</button>
-                    <button th:id="'reservationAccept_' + ${reservation2.id}" class="btn btn-danger account-refuse">Refuser</button>
-                </div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+
+<!--    <div class="container">-->
+<!--        <div class="container mt-5">-->
+<!--            <div class="row d-flex justify-content-center">-->
+<!--                <div class="col-md-7">-->
+<!--                    <div class="card p-3 py-4">-->
+<!--                        <div class="text-center mt-3">-->
+<!--                            <span class="bg-secondary p-1 px-4 rounded text-white" th:with="roleLC=${#strings.toLowerCase(user.role)}" th:text="${#strings.capitalize(roleLC)}"> </span>-->
+<!--                            <h5 class="my-2" th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></h5>-->
+<!--                            <div class="buttons">-->
+<!--                                <button class="btn btn-outline-primary px-4" disabled>Message</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="container my-3">-->
+<!--            <div class="row" th:each="reservation, i : ${reservations}">-->
+<!--                <div class="col" th:text="'Reservation #' + ${i.index}"></div>-->
+<!--                <div class="col" th:text="'Debut ' + ${reservation.startDate}"></div>-->
+<!--                <div class="col" th:text="'Fin ' + ${reservation.endDate}"></div>-->
+<!--                <th:block th:switch="${reservation.isValidated}">-->
+<!--                    <div class="col" th:case="'true'">-->
+<!--                        Statut : Validé-->
+<!--                    </div>-->
+<!--                    <div class="col" th:case="'false'">-->
+<!--                        Statut : Refusé-->
+<!--                    </div>-->
+<!--                    <div class="col" th:case="null">-->
+<!--                        Statut : En attente-->
+<!--                    </div>-->
+<!--                </th:block>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="container my-3">-->
+<!--            <div class="row" th:each="maison, j : ${maisons}">-->
+<!--                <div class="col" th:text="'Maison #' + ${j.index}"></div>-->
+<!--                <div class="col" th:text="'Titre ' + ${maison.titre}"></div>-->
+<!--                <a class="col" th:href="'/house/' + ${maison.id}">Lien</a>-->
+<!--                <div class="row" th:each="reservation2, k : ${reservations}"-->
+<!--                     th:if="${maison.id} == ${reservation2.maison.id}">-->
+<!--                    <div class="col" th:id="'reservation_' + ${reservation2.id}" th:text="'Reservation #' + ${k.index}"></div>-->
+<!--                    <div class="col" th:text="'Debut ' + ${reservation2.startDate}"></div>-->
+<!--                    <div class="col" th:text="'Fin ' + ${reservation2.endDate}"></div>-->
+<!--                    <div class="col" th:text="'Demandeur ' + |${reservation2.user.nom} ${reservation2.user.prenom}|"></div>-->
+<!--                    <button th:id="'reservationAccept_' + ${reservation2.id}" class="btn btn-primary account-accept">Accepter</button>-->
+<!--                    <button th:id="'reservationAccept_' + ${reservation2.id}" class="btn btn-danger account-refuse">Refuser</button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
 </div>
 </body>
 </html>

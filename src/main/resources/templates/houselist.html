@@ -5,11 +5,19 @@
       layout:decorate="/layouts/default">
 <body>
 <div id="page" layout:fragment="content">
-    <form th:action="@{/houselist}" method="get">
-        <input type="text" name="keyword" th:value="${keyword}" placeholder="Search">
-        <button type="submit" class="btn btn-info" >Search</button>
-    </form>
-    <h1>Liste des logements</h1>
+    <div class="card-body">
+        <h5 class="card-title text-center text-uppercase">Liste des logements</h5>
+    </div>
+    <div class="list-group my-2">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <form class="d-flex" role="search" th:action="@{/houselist}" method="get">
+                    <input class="form-control me-2" name="keyword" type="text" th:value="${keyword}" placeholder="Chalet à la montagne" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Rechercher</button>
+                </form>
+            </div>
+        </div>
+    </div>
     <div th:each="house : ${houses}">
         <div class="list-group">
             <div class="row">

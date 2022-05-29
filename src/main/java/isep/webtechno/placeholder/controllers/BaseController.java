@@ -124,7 +124,7 @@ public class BaseController {
 
     @PostMapping("/account")
     public void accountPost(HttpServletRequest request, HttpServletResponse response,
-                              @RequestParam Long id, @RequestParam boolean result) throws Exception {
+                            @RequestParam Long id, @RequestParam boolean result) throws Exception {
         Reservations reservation = reservationsRepository.findById(id).orElseThrow(() -> new Exception("No reservation with id " + id));
 //        logger.info(String.valueOf(reservation.getIsValidated() == null));
 

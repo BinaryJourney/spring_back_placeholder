@@ -5,10 +5,12 @@
       layout:decorate="/layouts/default">
 <body>
 <div id="page" layout:fragment="content">
-    <h1>Réservation du logement</h1>
+    <div class="card-body">
+        <h5 class="card-title text-center text-uppercase">Réservation du logement</h5>
+    </div>
     <div class="list-group ">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-6 mx-auto">
                 <!-- List group-->
                 <ul class="list-group shadow mt-2">
                     <!-- list group item-->
@@ -19,13 +21,13 @@
                                 <form action="#" th:action="@{'/housereservation/' + ${routeId}}" th:object="${reservations}" method="post">
 
                                     <div class="mb-3">
-                                        <label for="datedebut" class="form-label">Date de début de disponibilité</label>
+                                        <label for="datedebut" class="form-label">Début de la réservation</label>
                                         <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></div>
                                         <input type="date" class="form-control" id="datedebut" th:field="*{startDate}">
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="datefin" class="form-label">Date de fin de disponibilité</label>
+                                        <label for="datefin" class="form-label">Fin de la réservation</label>
                                         <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('startDate')}" th:errors="*{endDate}"></div>
                                         <input type="date" class="form-control" id="datefin" th:field="*{endDate}">
                                     </div>
