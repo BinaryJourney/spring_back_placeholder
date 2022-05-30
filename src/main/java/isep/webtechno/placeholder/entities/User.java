@@ -1,6 +1,7 @@
 package isep.webtechno.placeholder.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity(name = "Users")
@@ -30,6 +31,7 @@ public class User {
     private String nom;
 
     @Basic(optional = false)
+    @NotNull
     public String getNom() {
         return nom;
     }
@@ -41,6 +43,7 @@ public class User {
     private String prenom;
 
     @Basic(optional = false)
+    @NotNull
     public String getPrenom() {
         return prenom;
     }
@@ -52,6 +55,7 @@ public class User {
     private String email;
 
     @Column(nullable = false, unique = true)
+    @NotNull
     public String getEmail() {
         return email;
     }
@@ -63,6 +67,7 @@ public class User {
     private String password;
 
     @Column(length = 1020, nullable = false)
+    @NotNull
     public String getPassword() {
         return password;
     }

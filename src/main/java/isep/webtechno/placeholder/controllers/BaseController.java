@@ -30,6 +30,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.*;
 
 @Controller
@@ -41,7 +43,8 @@ public class BaseController {
     UserRepository userRepository;
     @Autowired
     ImagesRepository imagesRepository;
-
+    @Autowired
+    MessagesRepository messagesRepository;
     @Autowired
     TagsRepository tagsRepository;
 
@@ -105,10 +108,36 @@ public class BaseController {
         List<Maisons> maisonsList = maisonsRepository.findByUser(user);
         List<Reservations> reservationsList = reservationsRepository.findByUser(user);
         model.addAttribute("metaTitle", "Utilisateur #" + id + " | SwapHome");
-        model.addAttribute("maisons", maisonsList);
-        model.addAttribute("reservations", reservationsList);
         model.addAttribute("user", user);
         return "user";
+    }
+
+    @GetMapping("/userform")
+    public String userFormMapping(Model model, User user) {
+        model.addAttribute("Sign In - SwapHome");
+        model.addAttribute("user", user);
+        return "userform";
+    }
+
+    @PostMapping("/userform")
+    public String userFormMapping(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+        model.addAttribute("Sign In - SwapHome");
+        model.addAttribute("user", user);
+
+        logger.info(user.getEmail());
+        logger.info(user.getPassword());
+        logger.info(user.getNom());
+        logger.info(user.getPrenom());
+
+        if(bindingResult.hasErrors()) {
+            return "userform";
+        }
+
+        user.setRole("USER");
+        userRepository.save(user);
+
+        model.addAttribute("metaTitle", "Acceuil | SwapHome");
+        return "redirect:/home";
     }
 
     @GetMapping("/account")
@@ -154,6 +183,23 @@ public class BaseController {
 
     @GetMapping("/houseform")
     public String houseForm(Model model, Maisons maison) {
+        model.addAttribute("maison", maison);
+
+        List<List<Tags>> typeTagsList = new ArrayList<>();
+        typeTagsList.add(tagsRepository.findAllByType("Salle de bain"));
+        typeTagsList.add(tagsRepository.findAllByType("Chambre et linge"));
+        typeTagsList.add(tagsRepository.findAllByType("Divertissement"));
+        typeTagsList.add(tagsRepository.findAllByType("Famille"));
+        typeTagsList.add(tagsRepository.findAllByType("Chauffage et climatisation"));
+        model.addAttribute("metaTitle", "Nouveau logement | SwapHome");
+        model.addAttribute("tagTypesList", typeTagsList);
+
+        return "houseform";
+    }
+
+    @GetMapping("/houseform/{id}")
+    public String houseFormEdit(Model model, @PathVariable Long id) throws Exception {
+        Maisons maison = maisonsRepository.findById(id).orElseThrow(() -> new Exception("Pas de maison avec l'id " + id));
         model.addAttribute("maison", maison);
 
         List<List<Tags>> typeTagsList = new ArrayList<>();
@@ -250,4 +296,44 @@ public class BaseController {
         attribute.addFlashAttribute("message","Reservation réussie !");
         return "house";
     }
+
+    @GetMapping("/messages/{id}")
+    public String messageMapping(@PathVariable Long id, Model model, Messages messageModel) throws Exception {
+        User user = getUserFromUserProvider(Objects.requireNonNull(getLoggedUserProvider()));
+        User other_user = userRepository.findById(id).orElseThrow(() -> new Exception("Pas d'utilisateur avec l'id " + id));
+        List<Messages> messagesList = messagesRepository.findByUsersId(user.getId(), other_user.getId());
+        logger.info(messagesList.toString());
+        model.addAttribute("messages", messagesList);
+        model.addAttribute("myid", user.getId());
+        model.addAttribute("otherId", other_user.getId());
+        model.addAttribute("messageModel", messageModel);
+        return "messages";
+    }
+
+    @PostMapping("/messages/{id}")
+    public String messageMappingPost(@PathVariable Long id, Model model,
+                                     @Valid @ModelAttribute("messageModel") Messages messageModel,
+                                     BindingResult bindingResult) throws Exception {
+        User user = getUserFromUserProvider(Objects.requireNonNull(getLoggedUserProvider()));
+        User other_user = userRepository.findById(id).orElseThrow(() -> new Exception("Pas d'utilisateur avec l'id " + id));
+        List<Messages> messagesList = messagesRepository.findByUsersId(user.getId(), other_user.getId());
+        model.addAttribute("messages", messagesList);
+        model.addAttribute("myid", user.getId());
+        model.addAttribute("otherId", other_user.getId());
+        model.addAttribute("messageModel", messageModel);
+
+        if(bindingResult.hasErrors()) {
+            return "messages";
+        }
+
+        messageModel.setTimestamp(Timestamp.from(Instant.now()).toLocalDateTime());
+        messageModel.setSendingUser(user);
+        messageModel.setReceivingUser(other_user);
+        messagesRepository.save(messageModel);
+
+        messagesList.add(messageModel);
+
+        return "messages";
+    }
+
 }

@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/js/**", "/css/**").permitAll()
-                .antMatchers("/greeting").permitAll()
+                .antMatchers("/userform").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -36,6 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .passwordParameter("passwordInput")
                 .usernameParameter("usernameInput")
+                .defaultSuccessUrl("/")
                 .and()
                 .rememberMe()
                     .rememberMeParameter("rememberMeInput")

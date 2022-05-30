@@ -19,9 +19,9 @@
                                     <h5 class="card-title text-uppercase">Profil utilisateur</h5>
                                     <h5 class="card-title mt-5 mb-2" th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></h5>
                                     <div class="buttons text-center">
-                                        <button class="btn btn-outline-primary px-4" disabled>Message</button>
+                                        <a class="btn btn-outline-primary px-4" th:href="@{'/messages/' + ${user.id}}">Message</a>
                                     </div>
-                                    <div class="table-responsive mt-4">
+                                    <div  th:if="${reservations != null}" class="table-responsive mt-4">
                                         <h5 class="card-title my-4 text-center">Vos réservations</h5>
                                         <table class="table no-wrap user-table mb-0">
                                             <thead>
@@ -48,7 +48,7 @@
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div class="table-responsive mt-4">
+                                    <div th:if="${reservations != null}" class="table-responsive mt-4">
                                         <h5 class="card-title my-4 text-center">Vos annonces en ligne</h5>
                                         <table class="table no-wrap user-table mb-0">
                                             <thead>

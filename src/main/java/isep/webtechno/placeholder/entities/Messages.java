@@ -1,6 +1,7 @@
 package isep.webtechno.placeholder.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class Messages {
     private String texte;
 
     @Column(columnDefinition = "TEXT", nullable = false)
+    @NotNull
     public String getTexte() {
         return texte;
     }
@@ -72,5 +74,17 @@ public class Messages {
 
     public void setImages(List<Images> images) {
         Images = images;
+    }
+
+    @Override
+    public String toString() {
+        return "Messages{" +
+                "id=" + id +
+                ", texte='" + texte + '\'' +
+                ", timestamp=" + timestamp +
+                ", sendingUser=" + sendingUser +
+                ", receivingUser=" + receivingUser +
+                ", Images=" + Images +
+                '}';
     }
 }
