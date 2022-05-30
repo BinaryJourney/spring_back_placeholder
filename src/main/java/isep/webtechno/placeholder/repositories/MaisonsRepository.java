@@ -11,7 +11,7 @@ import java.util.List;
 public interface MaisonsRepository extends JpaRepository<Maisons, Long> {
     List<Maisons> findByUser(User user);
 
-    @Query(value = "select * from maisons s where s.titre like %:keyword% " +
-            "or s.description like %:keyword%", nativeQuery = true)
+    @Query(value = "select * from maisons s where LOWER(s.titre) like LOWER(:keyword) " +
+            "or LOWER(s.description) like LOWER(:keyword)", nativeQuery = true)
     List<Maisons> findByKeyword(@Param("keyword") String keyword);
 }
