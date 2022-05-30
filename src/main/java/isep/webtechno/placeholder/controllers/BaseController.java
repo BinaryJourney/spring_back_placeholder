@@ -306,6 +306,8 @@ public class BaseController {
         model.addAttribute("messages", messagesList);
         model.addAttribute("myid", user.getId());
         model.addAttribute("otherId", other_user.getId());
+        model.addAttribute("other_name", other_user.getNom());
+        model.addAttribute("other_surname", other_user.getPrenom());
         model.addAttribute("messageModel", messageModel);
         return "messages";
     }
@@ -320,6 +322,8 @@ public class BaseController {
         model.addAttribute("messages", messagesList);
         model.addAttribute("myid", user.getId());
         model.addAttribute("otherId", other_user.getId());
+        model.addAttribute("other_name", other_user.getNom());
+        model.addAttribute("other_surname", other_user.getPrenom());
         model.addAttribute("messageModel", messageModel);
 
         if(bindingResult.hasErrors()) {
