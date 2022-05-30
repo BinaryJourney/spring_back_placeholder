@@ -23,8 +23,7 @@
 
                                 <div class="d-flex align-items-center mt-4">
                                     <i class="bi bi-stars"></i>
-                                    <p>&nbsp;</p>
-                                    <p class="font-weight-bold my-0">Services demandés : </p>
+                                    <p class="font-weight-bold my-0">&nbsp;Services demandés : </p>
                                 </div>
                                 <div class="container">
                                     <p class="font-italic my-0 small" th:text="${maison.listeServices}"></p>
@@ -32,8 +31,7 @@
 
                                 <div class="d-flex align-items-center mt-4">
                                     <i class="bi bi-calendar-week-fill"></i>
-                                    <p>&nbsp;</p>
-                                    <p class="font-weight-bold my-0">Dates de disponibilité : </p>
+                                    <p class="font-weight-bold my-0">&nbsp;Dates de disponibilité : </p>
                                 </div>
                                 <div class="container">
                                     <p class="font-italic my-0 small" th:text="'Du ' + ${maison.dateDispoDebut} + ' au ' + ${maison.dateDispoFin}"></p>
@@ -41,8 +39,7 @@
 
                                 <div class="d-flex align-items-center mt-4">
                                     <i class="bi bi-tags"></i>
-                                    <p>&nbsp;</p>
-                                    <p class="font-weight-bold my-0">Tags : </p>
+                                    <p class="font-weight-bold my-0">&nbsp;Tags : </p>
                                 </div>
                                 <div class="container" th:each="tag : ${maison.tags}">
                                     <p class="font-italic my-0 small" th:text="${tag.libelle}"></p>
@@ -50,8 +47,7 @@
 
                                 <div class="d-flex align-items-center mt-4">
                                     <i class="bi bi-images"></i>
-                                    <p>&nbsp;</p>
-                                    <p class="font-weight-bold my-0">Photos du logement : </p>
+                                    <p class="font-weight-bold my-0">&nbsp;Photos du logement : </p>
                                 </div>
                                 <div class="d-flex align-items-center mt-4" th:each="image : ${maison.images}">
                                     <div class="row">
@@ -60,9 +56,9 @@
                                 </div>
 
                                 <div class="my-3 text-center">
-                                    <a class="btn btn-primary" th:href="@{${'/housereservation/' + maison.id}}" role="button">Réserver ce logement</a>
-                                    <a class="btn btn-primary" th:href="@{${'/user/' + maison.user}}" role="button">Profil de l'annonceur</a>
-                                    <a class="btn btn-primary" th:href="@{/houseform}" role="button">Poster une nouvelle annonce</a>
+                                    <a class="btn btn-primary" th:href="@{${'/housereservation/' + maison.id}}" role="button"><i class="bi bi-bookmark-check-fill"></i>&nbsp;Réserver ce logement</a>
+                                    <a class="btn btn-primary" th:href="@{${'/user/' + maison.user}}" role="button"><i class="bi bi-person-fill"></i>&nbsp;Profil de l'annonceur</a>
+                                    <a class="btn btn-primary" th:href="@{/houseform}" role="button"><i class="bi bi-file-earmark-plus"></i>&nbsp;Poster une nouvelle annonce</a>
                                 </div>
                             </div>
                         </div>

@@ -19,10 +19,10 @@
                                     <h5 class="card-title text-uppercase">Profil utilisateur</h5>
                                     <h5 class="card-title mt-5 mb-2" th:text="|${#strings.capitalize(user.prenom)} ${#strings.capitalize(user.nom)}|"></h5>
                                     <div class="buttons text-center">
-                                        <a class="btn btn-outline-primary px-4" th:href="@{'/messages/' + ${user.id}}">Message</a>
+                                        <a class="btn btn-outline-primary px-4" th:href="@{'/messages/' + ${user.id}}"><i class="bi bi-chat-dots"></i>&nbsp;Message</a>
                                     </div>
                                     <div  th:if="${reservations != null}" class="table-responsive mt-4">
-                                        <h5 class="card-title my-4 text-center">Vos réservations</h5>
+                                        <h5 class="card-title my-4 text-center"><i class="bi bi-bookmark-check-fill"></i>&nbsp;Vos réservations</h5>
                                         <table class="table no-wrap user-table mb-0">
                                             <thead>
                                             <tr>
@@ -49,7 +49,7 @@
                                         </table>
                                     </div>
                                     <div th:if="${reservations != null}" class="table-responsive mt-4">
-                                        <h5 class="card-title my-4 text-center">Vos annonces en ligne</h5>
+                                        <h5 class="card-title my-4 text-center"><i class="bi bi-ticket-detailed"></i>&nbsp;Vos annonces en ligne</h5>
                                         <table class="table no-wrap user-table mb-0">
                                             <thead>
                                             <tr>

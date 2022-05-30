@@ -5,9 +5,6 @@
       layout:decorate="/layouts/default">
 <body>
 <div id="page" layout:fragment="content">
-    <div class="card-body">
-        <h5 class="card-title text-center text-uppercase">Inscrivez vous</h5>
-    </div>
     <div class="list-group ">
         <div class="row">
             <div class="col-lg-8 mx-auto">
@@ -18,41 +15,44 @@
                         <!-- Custom content-->
                         <div class="media align-items-lg-center flex-column flex-lg-row p-3">
                             <div class="media-body order-2 order-lg-1">
-                                <form action="#" th:action="@{/userform}" th:object="${user}" method="post">
+                                <div class="card-body">
+                                    <h5 class="card-title text-center text-uppercase">Inscription</h5>
+                                    <form action="#" th:action="@{/userform}" th:object="${user}" method="post">
 
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
-                                        <input type="text" class="form-control" id="email" aria-describedby="emailHelp" th:field="*{email}">
-                                        <div id="emailHelp" class="form-text" >Veuillez remplir votre adresse e-mail interconnectée</div>
-                                    </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+                                            <input type="text" class="form-control" id="email" aria-describedby="emailHelp" th:field="*{email}">
+                                            <div id="emailHelp" class="form-text" >Veuillez remplir votre adresse e-mail interconnectée</div>
+                                        </div>
 
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-                                        <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" th:field="*{password}">
-                                        <div id="passwordHelp" class="form-text" >Veuillez rempir votre mot de passe ultra mega sécurisé</div>
-                                    </div>
+                                        <div class="mb-3">
+                                            <label for="password" class="form-label">Mot de passe</label>
+                                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                                            <input type="password" class="form-control" id="password" aria-describedby="passwordHelp" th:field="*{password}">
+                                            <div id="passwordHelp" class="form-text" >Veuillez rempir votre mot de passe ultra mega sécurisé</div>
+                                        </div>
 
-                                    <div class="mb-3">
-                                        <label for="nom" class="form-label">Nom</label>
-                                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></div>
-                                        <input type="text" class="form-control" id="nom" aria-describedby="nomHelp" th:field="*{nom}">
-                                        <div id="nomHelp" class="form-text" >Veuillez rempir votre beau nom</div>
-                                    </div>
+                                        <div class="mb-3">
+                                            <label for="nom" class="form-label">Nom</label>
+                                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}"></div>
+                                            <input type="text" class="form-control" id="nom" aria-describedby="nomHelp" th:field="*{nom}">
+                                            <div id="nomHelp" class="form-text" >Veuillez rempir votre beau nom</div>
+                                        </div>
 
-                                    <div class="mb-3">
-                                        <label for="prenom" class="form-label">Prenom</label>
-                                        <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></div>
-                                        <input type="text" class="form-control" id="prenom" aria-describedby="prenomHelp" th:field="*{prenom}">
-                                        <div id="prenomHelp" class="form-text" >Veuillez rempir votre superbe prenom</div>
-                                    </div>
+                                        <div class="mb-3">
+                                            <label for="prenom" class="form-label">Prénom</label>
+                                            <div class="alert alert-danger" role="alert" th:if="${#fields.hasErrors('prenom')}" th:errors="*{prenom}"></div>
+                                            <input type="text" class="form-control" id="prenom" aria-describedby="prenomHelp" th:field="*{prenom}">
+                                            <div id="prenomHelp" class="form-text" >Veuillez rempir votre superbe prenom</div>
+                                        </div>
 
-                                    <div class="mb-3 text-center">
-                                        <button type="submit" class="btn btn-primary" value="Submit">M'enregistrer</button>
-                                    </div>
-                            <!--        <p th:if="${#fields.hasAnyErrors()}">Any Error</p>-->
-                                </form>
+                                        <div class="mb-3 text-center">
+                                            <button type="submit" class="btn btn-primary" value="Submit"><i class="bi bi-check-lg"></i>&nbsp;M'enregistrer</button>
+                                        </div>
+                                <!--        <p th:if="${#fields.hasAnyErrors()}">Any Error</p>-->
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </li>

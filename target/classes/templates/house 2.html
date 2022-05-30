@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="fr"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="/layouts/default">
+<body>
+<div id="page" layout:fragment="content">
+
+    <h1>Description de l'offre</h1>
+
+    <div class="list-group ">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- List group-->
+                <ul class="list-group shadow mt-2">
+                    <!-- list group item-->
+                    <li class="list-group-item">
+                        <!-- Custom content-->
+                        <div class="media align-items-lg-center flex-column flex-lg-row p-3">
+                            <div class="media-body order-2 order-lg-1">
+                                <h4 class="mt-0 font-weight-bold mb-2" th:text="${maison.titre}"></h4>
+                                <h5 class="font-italic text-muted mb-0 small text-truncate" th:text="${maison.titre}"></h5>
+                                <p th:text="'titre: ' + ${maison.titre}" />
+                                <p th:text="'description: ' + ${maison.description}" />
+                                <p th:text="'liste_services: ' + ${maison.listeServices}" />
+                                <p th:text="'date_dispo_debut: ' + ${maison.dateDispoDebut}" />
+                                <p th:text="'date_dispo_fin: ' + ${maison.dateDispoFin}" />
+                                <div class="row">Tags :</div>
+                                <div class="container" th:each="tag : ${maison.tags}">
+                                    <div class="row" th:text="${tag.libelle}"/>
+                                </div>
+
+                                <div class="container" th:each="image : ${maison.images}">
+                                    <div class="row">
+                                        <img th:src="${image.getPhotosImagePath()}" />
+                                    </div>
+                                </div>
+                                <div class="mb-3 text-center">
+                                    <a class="btn btn-primary" th:href="@{/houseform}" role="button">Poster une nouvelle annonce</a>
+                                    <a class="btn btn-primary" th:href="@{/housereservation}" role="button">Réserver ce logement</a>
+                                </div>
+                                <a th:href="@{/houseform}">Poster une nouvelle annonce</a>
+                                <a th:href="@{/housereservation}">Réserver ce logement</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
