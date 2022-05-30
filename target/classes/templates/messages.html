@@ -21,7 +21,8 @@
                                         <i class="bi bi-chat-dots"></i>
                                         <p class="font-weight-bold my-0">&nbsp;Conversation :</p>
                                     </div>
-                                    <div class="container" th:each="message : ${messages}">
+
+                                    <div class="container my-3" th:each="message : ${messages}">
                                         <p th:if="${message.sendingUser} == ${myid}" class="font-italic my-0 small">Moi</p>
                                         <p th:unless="${message.sendingUser} == ${myid}" th:text="|${#strings.capitalize(other_name)} ${#strings.capitalize(other_surname)}|" class="font-italic my-0 small"></p>
                                         <p class="font-italic my-0 small" th:text="${message.texte}"></p>
